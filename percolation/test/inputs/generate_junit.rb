@@ -1,7 +1,8 @@
 Dir.foreach(".") do |filename|
   next unless File.extname(filename) == '.txt'
   name = File.basename(filename, '.txt').gsub('-','_')
-  next unless name =~ /input/i
+  
+  #next unless name =~ /input/i
 
   size = 0
   open_cmds = []
