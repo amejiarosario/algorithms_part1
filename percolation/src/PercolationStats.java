@@ -16,7 +16,7 @@ public class PercolationStats {
 	 * @param N
 	 * @param T
 	 * @exception java.lang.IllegalArgumentException
-	 *                if either N ² 0 or T ² 0
+	 *                if either N =< 0 or T =< 0
 	 */
 	public PercolationStats(int N, int T) {
 		t = new double[T];
@@ -24,22 +24,26 @@ public class PercolationStats {
 		Percolation per;
 		for (int x = 0; x < T; x++) {
 			per = new Percolation(N);
+			int count = 0;
+			
 			do{
 				// Randomly open sites (i, j)
 				int i = StdRandom.uniform(1, N+1);
 				int j = StdRandom.uniform(1, N+1);
-				per.open(i, j); // Open site
+				
+				if(!per.isOpen(i, j)){
+					per.open(i, j); // Open site
+					count++;
+				}
+				
 				//out.append(i+" "+j+"\n");
 				//System.out.println(i+" "+j+";; opensite="+per.openSitesCount());
 			}while(!per.percolates());
 			// The fraction of sites that are t when the system percolates provides an estimate of the percolation threshold.
-			t[x] = (double) per.openSitesCount() / (double) (N*N);
+			
+			t[x] = (double) count / (double) (N*N);
 			//System.out.printf("%d/%d = %f\n",per.openSitesCount(),N*N,t[x]);
 		}
-	}
-	
-	public String output(){
-		return ""; //out.toString();
 	}
 
 	/**

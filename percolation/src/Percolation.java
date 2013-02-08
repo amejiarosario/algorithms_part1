@@ -78,7 +78,11 @@ public class Percolation {
 		return open[i][j] == 1;
 	}
 	
-	public int openSitesCount(){
+	/**
+	 * Per assigment requirement (The following methods should be removed or made private)
+	 * @return
+	 */
+	private int openSitesCount(){
 		return openSitesCount;
 	}
 
