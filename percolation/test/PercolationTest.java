@@ -23,6 +23,20 @@ public class PercolationTest {
 	}
 
 	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test
+	public void testIsFull() {
+		per = new Percolation(3);
+		per.open(2, 2); 
+		assertFalse(per.isFull(2,2));
+		per.open(1, 2); 
+		assertFalse(per.isFull(1,2));
+		per.open(3, 2);
+		assertTrue(per.isFull(3,2));
+	}	
+	
+	/**
 	 * Test method for {@link Percolation#percolates()}.
 	 */
 	@Test

@@ -1,8 +1,4 @@
 /**
- * Program to estimate the value of the percolation threshold via Monte Carlo simulation
- */
-
-/**
  * @author adrian
  * 
  */
@@ -34,7 +30,6 @@ public class Percolation {
 	 */
 	public void open(int i, int j) {
 		openSite(i, j);
-		System.out.printf("open(%d,%d)\n", i, j);
 		int d = xyTo1D(i, j);
 		checkAndOpen(i - 1, j, d);
 		checkAndOpen(i + 1, j, d);
@@ -43,10 +38,8 @@ public class Percolation {
 	}
 
 	private void checkAndOpen(int i, int j, int d) {
-		if (isOpen(i, j)) {
+		if (isOpen(i, j))
 			uf.union(d, xyTo1D(i, j));
-			System.out.printf("\tunion(%d,%d)\n", d, xyTo1D(i, j));
-		}
 	}
 
 	/**
@@ -98,23 +91,22 @@ public class Percolation {
 	}
 
 	/**
-	 * is site (row i, column j) full?
+	 * A full site is an open site that can be connected to an open site in the
+	 * top row via a chain of neighboring (left, right, up, down) open sites.
 	 * 
-	 * @param i
-	 * @param j
+	 * @param i rows from 1 to N
+	 * @param j columns from 1 to N
 	 * @exception java.lang.IndexOutOfBoundsException
 	 *                if either i or j is outside this range
 	 * @return
 	 */
 	public boolean isFull(int i, int j) {
-		checkBoundaries(i, j);
-		return false;
+		checkBoundaries(i-1, j-1); // convert to zero-indexed arrays
+		return percolates() && uf.connected(0, xyTo1D(i, j));
 	}
 
 	/**
-	 * does the system percolate?
-	 * 
-	 * @return
+	 * @return does the system percolate?
 	 */
 	public boolean percolates() {
 		if (n == 1) {
@@ -124,11 +116,11 @@ public class Percolation {
 				return false;
 		}
 
-		// virtual top site
+		// virtual top site FIXME change this to O(1) instead of O(n)
 		for (int i = 1; i <= n; i++)
 			checkAndOpen(1, i, 0);
 
-		// virtual bottom site
+		// virtual bottom site FIXME change this to O(1) instead of O(n)
 		for (int i = 1; i <= n; i++)
 			checkAndOpen(n, i, n * n + 1);
 
