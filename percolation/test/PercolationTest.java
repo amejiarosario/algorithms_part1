@@ -21,6 +21,42 @@ public class PercolationTest {
 	public void setUp() throws Exception {
 		per = null;
 	}
+	
+	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testOpenException() {
+		per = new Percolation(3);
+		per.open(1,0);
+	}
+	
+	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testOpenException2() {
+		per = new Percolation(3);
+		per.open(4,1);
+	}	
+	
+	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testIsFullException() {
+		per = new Percolation(3);
+		per.isFull(1,0);
+	}
+	
+	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testIsFullException2() {
+		per = new Percolation(3);
+		per.isFull(4,1);
+	}
 
 	/**
 	 * Test method for {@link Percolation#isFull()}.

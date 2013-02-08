@@ -14,6 +14,9 @@
  *  open sites (that aren't full) in white, and blocked sites in black,
  *  with with site (1, 1) in the upper left-hand corner.
  *
+ * Run: (pwd=)
+ *   javac -cp ../../lib/algs4.jar:../../lib/stdlib.jar:. *.java
+ * 	 java -cp ../../lib/algs4.jar:../../lib/stdlib.jar:. PercolationVisualizer ../test/inputs/input20.txt
  ****************************************************************************/
 
 import java.awt.Font;

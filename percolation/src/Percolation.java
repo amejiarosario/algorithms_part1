@@ -1,4 +1,14 @@
 /**
+ * The model. We model a percolation system using an N-by-N grid of sites.
+ * Each site is either open or blocked. A full site is an open site that can
+ * be connected to an open site in the top row via a chain of neighboring
+ * (left, right, up, down) open sites. We say the system percolates if there
+ * is a full site in the bottom row. In other words, a system percolates if
+ * we fill all open sites connected to the top row and that process fills
+ * some open site on the bottom row.
+ */
+
+/**
  * @author adrian
  * 
  */
@@ -6,6 +16,7 @@ public class Percolation {
 	private int n;
 	private int[][] open;
 	private WeightedQuickUnionUF uf;
+	private int openSitesCount;
 
 	/**
 	 * Create N-by-N grid, with all sites blocked
@@ -15,6 +26,7 @@ public class Percolation {
 	public Percolation(int N) {
 		n = N;
 		open = new int[N][N];
+		openSitesCount = 0;
 		uf = new WeightedQuickUnionUF(N * N + 2);
 	}
 
@@ -35,6 +47,8 @@ public class Percolation {
 		checkAndOpen(i + 1, j, d);
 		checkAndOpen(i, j - 1, d);
 		checkAndOpen(i, j + 1, d);
+		if(i == 1) checkAndOpen(1,j,0); // virtual top
+		if(i == n) checkAndOpen(n,j,n*n+1); // virtual top
 	}
 
 	private void checkAndOpen(int i, int j, int d) {
@@ -63,6 +77,10 @@ public class Percolation {
 		}
 		return open[i][j] == 1;
 	}
+	
+	public int openSitesCount(){
+		return openSitesCount;
+	}
 
 	/**
 	 * Translates from grid(x,y) to 1D array
@@ -87,7 +105,10 @@ public class Percolation {
 		i--;
 		j--;
 		checkBoundaries(i, j);
-		open[i][j] = 1;
+		if(open[i][j] != 1){
+			openSitesCount++;
+			open[i][j] = 1;
+		}
 	}
 
 	/**
@@ -115,15 +136,6 @@ public class Percolation {
 			else
 				return false;
 		}
-
-		// virtual top site FIXME change this to O(1) instead of O(n)
-		for (int i = 1; i <= n; i++)
-			checkAndOpen(1, i, 0);
-
-		// virtual bottom site FIXME change this to O(1) instead of O(n)
-		for (int i = 1; i <= n; i++)
-			checkAndOpen(n, i, n * n + 1);
-
 		return uf.connected(0, n * n + 1);
 	}
 

@@ -8,8 +8,8 @@
  * 
  */
 public class PercolationStats {
-	private int n, t;
-	private int results[];
+	private double t[];
+	//private StringBuilder out;
 	/**
 	 * perform T independent computational experiments on an N-by-N grid
 	 * 
@@ -19,15 +19,27 @@ public class PercolationStats {
 	 *                if either N ² 0 or T ² 0
 	 */
 	public PercolationStats(int N, int T) {
-		n = N;
-		t = T;
-		results = new int[T];
+		t = new double[T];
+		//out = new StringBuilder(n+"\n");
 		Percolation per;
-		for (int t = 0; t < T; t++) {
+		for (int x = 0; x < T; x++) {
 			per = new Percolation(N);
-
+			do{
+				// Randomly open sites (i, j)
+				int i = StdRandom.uniform(1, N+1);
+				int j = StdRandom.uniform(1, N+1);
+				per.open(i, j); // Open site
+				//out.append(i+" "+j+"\n");
+				//System.out.println(i+" "+j+";; opensite="+per.openSitesCount());
+			}while(!per.percolates());
+			// The fraction of sites that are t when the system percolates provides an estimate of the percolation threshold.
+			t[x] = (double) per.openSitesCount() / (double) (N*N);
+			//System.out.printf("%d/%d = %f\n",per.openSitesCount(),N*N,t[x]);
 		}
-
+	}
+	
+	public String output(){
+		return ""; //out.toString();
 	}
 
 	/**
@@ -36,7 +48,7 @@ public class PercolationStats {
 	 * @return
 	 */
 	public double mean() {
-		return 0.0;
+		return StdStats.mean(t);
 	}
 
 	/**
@@ -45,8 +57,7 @@ public class PercolationStats {
 	 * @return
 	 */
 	public double stddev() {
-		if(t==1) return Double.NaN;
-		return 0.0;
+		return StdStats.stddev(t);
 	}
 
 	/**
@@ -55,7 +66,7 @@ public class PercolationStats {
 	 * @return
 	 */
 	public double confidenceLo() {
-		return 0.0;
+		return mean() - (1.96*stddev()/Math.sqrt(t.length));
 	}
 
 	//
@@ -65,7 +76,7 @@ public class PercolationStats {
 	 * @return
 	 */
 	public double confidenceHi() {
-		return 0.0;
+		return mean() + (1.96*stddev()/Math.sqrt(t.length));
 	}
 
 	/**
@@ -86,6 +97,7 @@ public class PercolationStats {
 		System.out.printf("stddev                  = %f\n", perStat.stddev());
 		System.out.printf("95%% confidence interval = %f, %f\n",
 				perStat.confidenceLo(), perStat.confidenceHi());
-
+		//System.out.println("------");
+		//System.out.println(perStat.output());
 	}
 }
