@@ -41,10 +41,50 @@ public class PercolationTest {
 	}
 	
 	/**
+	 * Test method for {@link Percolation#open()}.
+	 */
+	@Test
+	public void testRepeatedOpen() {
+		per = new Percolation(3);
+		per.open(3, 1);
+		per.open(3, 2);
+		per.open(3, 3);
+		per.open(2, 2);
+		per.open(2, 3);
+		per.open(1, 3);
+		assertTrue(per.percolates());
+		per.open(3, 1);
+		per.open(3, 2);
+		per.open(3, 3);		
+		per.open(1, 1);
+		per.open(3, 2);
+		per.open(3, 3);		
+		per.open(2, 1);
+		per.open(1, 2);
+	}	
+	
+	/**
 	 * Test method for {@link Percolation#isFull()}.
 	 */
 	@Test
 	public void testBackwash() {
+		per = new Percolation(3);
+		per.open(3, 1);
+		per.open(1, 3);
+		per.open(2, 3);
+		per.open(3, 3);
+		per.open(2, 1);
+		assertTrue(per.percolates());
+		assertFalse(per.isFull(2, 1));
+		assertFalse(per.isFull(3, 1));
+		assertTrue(per.isFull(3, 3));
+	}	
+	
+	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test
+	public void testBackwash2() {
 		per = new Percolation(3);
 		per.open(1, 3);
 		per.open(2, 3);
