@@ -16,9 +16,7 @@ public class Percolation {
   private int n;
   private boolean[][] open;
   private WeightedQuickUnionUF uf;
-  private int openSitesCount;
-  private int[] bottom;
-  private int bottomIndex;
+  private WeightedQuickUnionUF nw; // no backwash
 
   /**
    * Create N-by-N grid, with all sites blocked
@@ -28,10 +26,8 @@ public class Percolation {
   public Percolation(int N) {
     n = N;
     open = new boolean[N][N];
-    openSitesCount = 0;
-    bottom = new int[N];
-    bottomIndex = 0;
     uf = new WeightedQuickUnionUF(N * N + 2);
+    nw = new WeightedQuickUnionUF(N * N + 2);
   }
 
   /**
@@ -45,28 +41,31 @@ public class Percolation {
    *              if either i or j is outside this range
    */
   public void open(int i, int j) {
-    if(isOpen(i,j)) 
-      return; 
-    
-    openSite(i, j);
+    if (isOpen(i, j))
+      return;
+
+    open[i - 1][j - 1] = true;
+
     int d = xyTo1D(i, j);
     checkAndOpen(i - 1, j, d);
     checkAndOpen(i + 1, j, d);
     checkAndOpen(i, j - 1, d);
     checkAndOpen(i, j + 1, d);
-    
+
     // virtual top (and bottom)
     if (i == 1)
       checkAndOpen(1, j, 0); // virtual top
-    if (i == n)
-      bottom[bottomIndex++] = j;
-    // checkAndOpen(n, j, n * n + 1); // virtual bottom 
+    if (i == n) {
+      uf.union(n * n + 1, xyTo1D(i, j));
+    }
   }
 
   private void checkAndOpen(int i, int j, int d) {
     try {
-      if (isOpen(i, j))
+      if (isOpen(i, j)) {
+        nw.union(d, xyTo1D(i, j));
         uf.union(d, xyTo1D(i, j));
+      }
     } catch (IndexOutOfBoundsException e) {
       return;
     }
@@ -89,16 +88,6 @@ public class Percolation {
   }
 
   /**
-   * Per assigment requirement (The following methods should be removed or made
-   * private)
-   * 
-   * @return
-   */
-  private int openSitesCount() {
-    return openSitesCount;
-  }
-
-  /**
    * Translates from grid(x,y) to 1D array
    * 
    * @param i
@@ -107,21 +96,6 @@ public class Percolation {
    */
   private int xyTo1D(int i, int j) {
     return n * (i - 1) + j;
-  }
-
-  /**
-   * Mark the site as open
-   * 
-   * @param i
-   *          row from 1 to N
-   * @param j
-   *          column from 1 to N
-   */
-  private void openSite(int i, int j) {
-    if (!open[i - 1][j - 1]) {
-      openSitesCount++;
-      open[i - 1][j - 1] = true;
-    }
   }
 
   /**
@@ -138,7 +112,7 @@ public class Percolation {
    */
   public boolean isFull(int i, int j) {
     checkBoundaries(i - 1, j - 1);
-    return uf.connected(0, xyTo1D(i, j));
+    return nw.connected(0, xyTo1D(i, j));
   }
 
   /**
@@ -148,11 +122,7 @@ public class Percolation {
     if (n == 1)
       return open[0][0];
 
-    for (int i = 0; i < bottomIndex; i++)
-      if (uf.connected(0, xyTo1D(n, bottom[i])))
-        return true;
-
-    return false; // uf.connected(0, n * n + 1); //
+    return uf.connected(0, n * n + 1);
   }
 
   private void checkBoundaries(int i, int j) {
