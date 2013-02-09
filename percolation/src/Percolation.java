@@ -14,7 +14,7 @@
  */
 public class Percolation {
   private int n;
-  private int[][] open;
+  private boolean[][] open;
   private WeightedQuickUnionUF uf;
   private int openSitesCount;
   private int[] bottom;
@@ -27,7 +27,7 @@ public class Percolation {
    */
   public Percolation(int N) {
     n = N;
-    open = new int[N][N];
+    open = new boolean[N][N];
     openSitesCount = 0;
     bottom = new int[N];
     bottomIndex = 0;
@@ -85,7 +85,7 @@ public class Percolation {
    */
   public boolean isOpen(int i, int j) {
     checkBoundaries(i - 1, j - 1);
-    return open[i - 1][j - 1] == 1;
+    return open[i - 1][j - 1];
   }
 
   /**
@@ -118,9 +118,9 @@ public class Percolation {
    *          column from 1 to N
    */
   private void openSite(int i, int j) {
-    if (open[i - 1][j - 1] != 1) {
+    if (!open[i - 1][j - 1]) {
       openSitesCount++;
-      open[i - 1][j - 1] = 1;
+      open[i - 1][j - 1] = true;
     }
   }
 
@@ -146,7 +146,7 @@ public class Percolation {
    */
   public boolean percolates() {
     if (n == 1)
-      return open[0][0] == 1;
+      return open[0][0];
 
     for (int i = 0; i < bottomIndex; i++)
       if (uf.connected(0, xyTo1D(n, bottom[i])))
