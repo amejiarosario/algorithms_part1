@@ -47,13 +47,19 @@ public class Percolation {
 		checkAndOpen(i + 1, j, d);
 		checkAndOpen(i, j - 1, d);
 		checkAndOpen(i, j + 1, d);
-		if(i == 1) checkAndOpen(1,j,0); // virtual top
-		if(i == n) checkAndOpen(n,j,n*n+1); // virtual top
+		if (i == 1)
+			checkAndOpen(1, j, 0); // virtual top
+		if (i == n)
+			checkAndOpen(n, j, n * n + 1); // virtual bottom
 	}
 
 	private void checkAndOpen(int i, int j, int d) {
-		if (isOpen(i, j))
-			uf.union(d, xyTo1D(i, j));
+		try {
+			if (isOpen(i, j))
+				uf.union(d, xyTo1D(i, j));
+		} catch (IndexOutOfBoundsException e) {
+			return;
+		}
 	}
 
 	/**
@@ -68,21 +74,17 @@ public class Percolation {
 	 * @return
 	 */
 	public boolean isOpen(int i, int j) {
-		i--;
-		j--; // zero-indexed array conversion
-		try {
-			checkBoundaries(i, j);
-		} catch (IndexOutOfBoundsException e) {
-			return false;
-		}
-		return open[i][j] == 1;
+		checkBoundaries(i - 1, j - 1);
+		return open[i - 1][j - 1] == 1;
 	}
-	
+
 	/**
-	 * Per assigment requirement (The following methods should be removed or made private)
+	 * Per assigment requirement (The following methods should be removed or
+	 * made private)
+	 * 
 	 * @return
 	 */
-	private int openSitesCount(){
+	private int openSitesCount() {
 		return openSitesCount;
 	}
 
@@ -106,12 +108,10 @@ public class Percolation {
 	 *            column from 1 to N
 	 */
 	private void openSite(int i, int j) {
-		i--;
-		j--;
-		checkBoundaries(i, j);
-		if(open[i][j] != 1){
+		checkBoundaries(i - 1, j - 1);
+		if (open[i - 1][j - 1] != 1) {
 			openSitesCount++;
-			open[i][j] = 1;
+			open[i - 1][j - 1] = 1;
 		}
 	}
 
@@ -119,27 +119,26 @@ public class Percolation {
 	 * A full site is an open site that can be connected to an open site in the
 	 * top row via a chain of neighboring (left, right, up, down) open sites.
 	 * 
-	 * @param i rows from 1 to N
-	 * @param j columns from 1 to N
+	 * @param i
+	 *            rows from 1 to N
+	 * @param j
+	 *            columns from 1 to N
 	 * @exception java.lang.IndexOutOfBoundsException
 	 *                if either i or j is outside this range
 	 * @return
 	 */
 	public boolean isFull(int i, int j) {
-		checkBoundaries(i-1, j-1); // convert to zero-indexed arrays
-		return percolates() && uf.connected(0, xyTo1D(i, j));
+		checkBoundaries(i - 1, j - 1);
+		return uf.connected(0, xyTo1D(i, j));
 	}
 
 	/**
 	 * @return does the system percolate?
 	 */
 	public boolean percolates() {
-		if (n == 1) {
-			if (open[0][0] == 1)
-				return true;
-			else
-				return false;
-		}
+		if (n == 1)
+			return open[0][0] == 1;
+
 		return uf.connected(0, n * n + 1);
 	}
 

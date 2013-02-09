@@ -21,6 +21,15 @@ public class PercolationTest {
 	public void setUp() throws Exception {
 		per = null;
 	}
+
+	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testisOpenException2() {
+		per = new Percolation(3);
+		per.isOpen(4,1);
+	}	
 	
 	/**
 	 * Test method for {@link Percolation#isFull()}.
@@ -30,6 +39,23 @@ public class PercolationTest {
 		per = new Percolation(3);
 		per.open(1,0);
 	}
+	
+	/**
+	 * Test method for {@link Percolation#isFull()}.
+	 */
+	@Test
+	public void testBackwash() {
+		per = new Percolation(3);
+		per.open(1, 3);
+		per.open(2, 3);
+		per.open(3, 3);
+		per.open(3, 1);
+		per.open(2, 1);
+		assertTrue(per.percolates());
+		assertFalse(per.isFull(2, 1));
+		assertFalse(per.isFull(3, 1));
+		assertTrue(per.isFull(3, 3));
+	}	
 	
 	/**
 	 * Test method for {@link Percolation#isFull()}.
@@ -67,9 +93,13 @@ public class PercolationTest {
 		per.open(2, 2); 
 		assertFalse(per.isFull(2,2));
 		per.open(1, 2); 
-		assertFalse(per.isFull(1,2));
+		assertTrue(per.isFull(1,2));
+		assertTrue(per.isFull(2,2));
+		per.open(3, 1);
+		assertFalse(per.isFull(3,1));
 		per.open(3, 2);
 		assertTrue(per.isFull(3,2));
+		assertTrue(per.isFull(3,1));
 	}	
 	
 	/**
@@ -179,6 +209,7 @@ public class PercolationTest {
 	public void test_input6() {
 		per = new Percolation(6);
 		per.open(1, 6);
+		assertTrue(per.isFull(1,6));
 		per.open(2, 6);
 		per.open(3, 6);
 		per.open(4, 6);
@@ -231,6 +262,7 @@ public class PercolationTest {
 	public void test_input8_no() {
 		per = new Percolation(8);
 		per.open(1, 6);
+		assertTrue(per.isFull(1, 6));
 		per.open(5, 1);
 		per.open(6, 5);
 		per.open(2, 2);
@@ -437,6 +469,7 @@ public class PercolationTest {
 		per.open(7, 10);
 		per.open(4, 5);
 		per.open(8, 10);
+		assertFalse(per.isFull(9,1));
 		assertTrue(per.percolates());
 	}
 
@@ -689,6 +722,7 @@ public class PercolationTest {
 		per.open(3, 6);
 		per.open(16, 1);
 		per.open(20, 1);
+		assertFalse(per.isFull(18,1));
 		per.open(7, 18);
 		per.open(20, 5);
 		per.open(7, 12);

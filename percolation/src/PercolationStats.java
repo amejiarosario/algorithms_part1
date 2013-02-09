@@ -8,41 +8,47 @@
  * 
  */
 public class PercolationStats {
-	private double t[];
-	//private StringBuilder out;
+	private double[] t;
+
+	// private StringBuilder out;
 	/**
 	 * perform T independent computational experiments on an N-by-N grid
 	 * 
 	 * @param N
 	 * @param T
 	 * @exception java.lang.IllegalArgumentException
-	 *                if either N =< 0 or T =< 0
 	 */
 	public PercolationStats(int N, int T) {
+		if (N < 1)
+			throw new IllegalArgumentException("N should be bigger than 0.");
+		if (T < 1)
+			throw new IllegalArgumentException("T should be bigger than 0.");
+
 		t = new double[T];
-		//out = new StringBuilder(n+"\n");
+		// out = new StringBuilder(n+"\n");
 		Percolation per;
 		for (int x = 0; x < T; x++) {
 			per = new Percolation(N);
 			int count = 0;
-			
-			do{
+
+			do {
 				// Randomly open sites (i, j)
-				int i = StdRandom.uniform(1, N+1);
-				int j = StdRandom.uniform(1, N+1);
-				
-				if(!per.isOpen(i, j)){
+				int i = StdRandom.uniform(1, N + 1);
+				int j = StdRandom.uniform(1, N + 1);
+
+				if (!per.isOpen(i, j)) {
 					per.open(i, j); // Open site
 					count++;
 				}
-				
-				//out.append(i+" "+j+"\n");
-				//System.out.println(i+" "+j+";; opensite="+per.openSitesCount());
-			}while(!per.percolates());
-			// The fraction of sites that are t when the system percolates provides an estimate of the percolation threshold.
-			
-			t[x] = (double) count / (double) (N*N);
-			//System.out.printf("%d/%d = %f\n",per.openSitesCount(),N*N,t[x]);
+
+				// out.append(i+" "+j+"\n");
+				// System.out.println(i+" "+j+";; opensite="+per.openSitesCount());
+			} while (!per.percolates());
+			// The fraction of sites that are t when the system percolates
+			// provides an estimate of the percolation threshold.
+
+			t[x] = (double) count / (double) (N * N);
+			// System.out.printf("%d/%d = %f\n",per.openSitesCount(),N*N,t[x]);
 		}
 	}
 
@@ -70,7 +76,7 @@ public class PercolationStats {
 	 * @return
 	 */
 	public double confidenceLo() {
-		return mean() - (1.96*stddev()/Math.sqrt(t.length));
+		return mean() - (1.96 * stddev() / Math.sqrt(t.length));
 	}
 
 	//
@@ -80,7 +86,7 @@ public class PercolationStats {
 	 * @return
 	 */
 	public double confidenceHi() {
-		return mean() + (1.96*stddev()/Math.sqrt(t.length));
+		return mean() + (1.96 * stddev() / Math.sqrt(t.length));
 	}
 
 	/**
@@ -95,13 +101,18 @@ public class PercolationStats {
 		int N = Integer.parseInt(args[0]);
 		int T = Integer.parseInt(args[1]);
 
+		Stopwatch sw = new Stopwatch();
+		
 		PercolationStats perStat = new PercolationStats(N, T);
 
 		System.out.printf("mean                    = %f\n", perStat.mean());
 		System.out.printf("stddev                  = %f\n", perStat.stddev());
 		System.out.printf("95%% confidence interval = %f, %f\n",
 				perStat.confidenceLo(), perStat.confidenceHi());
-		//System.out.println("------");
-		//System.out.println(perStat.output());
+		
+        System.out.println("------");
+		System.out.printf("Total time: %f secs. (for N=%d, T=%d)", sw.elapsedTime(),N,T);
+		
+		// System.out.println(perStat.output());
 	}
 }
