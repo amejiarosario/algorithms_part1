@@ -56,4 +56,11 @@ public class WeightedQuickUnion implements DynamicConnectivity {
 	public boolean connected(int p, int q) {
 		return find(p) == find(q);
 	}
+	
+  public String toString() {
+    StringBuilder sb = new StringBuilder("");
+    for (int i = 0; i < id.length; i++)
+      sb.append(id[i] + " ");
+    return sb.toString();
+  }
 }

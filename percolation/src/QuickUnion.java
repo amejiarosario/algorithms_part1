@@ -11,7 +11,8 @@ public class QuickUnion implements DynamicConnectivity {
 	
 	public QuickUnion(int N){
 		id = new int[N];
-		for(int i=0; i < N; i++) id[i] = i;
+		for(int i=0; i < N; i++) 
+		  id[i] = i;
 	}
 	
 	/**
@@ -20,7 +21,8 @@ public class QuickUnion implements DynamicConnectivity {
 	 * @return
 	 */
 	private int find(int i){
-		while(i != id[i]) i = id[i];
+		while(i != id[i]) 
+		  i = id[i];
 		return i;
 	}
 
@@ -29,8 +31,19 @@ public class QuickUnion implements DynamicConnectivity {
 	 */
 	@Override
 	public void union(int p, int q) {
-		id[find(p)] = find(q);
+	  int findp = find(p);
+	  int findq = find(q);
+	  if(findp == findq) return;
+		id[findq] = findp;
+		System.out.println(p+"-"+q+": "+toString());
 	}
+	
+  public String toString() {
+    StringBuilder sb = new StringBuilder("");
+    for (int i = 0; i < id.length; i++)
+      sb.append(id[i] + " ");
+    return sb.toString();
+  }
 
 	/* (non-Javadoc)
 	 * @see DynamicConnectivity#connected(int, int)
