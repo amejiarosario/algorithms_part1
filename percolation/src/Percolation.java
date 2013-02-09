@@ -49,8 +49,8 @@ public class Percolation {
 		checkAndOpen(i, j + 1, d);
 		if (i == 1)
 			checkAndOpen(1, j, 0); // virtual top
-		if (i == n)
-			checkAndOpen(n, j, n * n + 1); // virtual bottom
+//		if (i == n)
+//			checkAndOpen(n, j, n * n + 1); // virtual bottom
 	}
 
 	private void checkAndOpen(int i, int j, int d) {
@@ -139,7 +139,11 @@ public class Percolation {
 		if (n == 1)
 			return open[0][0] == 1;
 
-		return uf.connected(0, n * n + 1);
+		for (int i = 1; i <= n; i++)
+			if(uf.connected(0, xyTo1D(n, i)))
+				return true;
+		
+		return false;//uf.connected(0, n * n + 1);
 	}
 
 	private void checkBoundaries(int i, int j) {
