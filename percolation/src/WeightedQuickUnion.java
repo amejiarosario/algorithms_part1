@@ -17,6 +17,7 @@ public class WeightedQuickUnion implements DynamicConnectivity {
 			id[i] = i;
 			sz[i] = 1;
 		}
+		System.out.printf("%d-%d: %s\n",0,0,toString());
 	}
 	
 	/**
@@ -26,7 +27,7 @@ public class WeightedQuickUnion implements DynamicConnectivity {
 	 */
 	private int find(int i){
 		while(i != id[i]){
-			id[i] = id[id[i]]; // path compression
+			//id[i] = id[id[i]]; // path compression
 			i = id[i];
 		}
 		return i;
@@ -37,16 +38,19 @@ public class WeightedQuickUnion implements DynamicConnectivity {
 	 */
 	@Override
 	public void union(int p, int q) {
+	  int findp = find(p);
 		int findq = find(q);
-		int findp = find(p);
 		
-		if(sz[p] > sz[q]){
-			id[findq] = find(p);
-			sz[findq] += sz[p];
+		if(findp == findq) return;
+		
+		if(sz[findp] < sz[findq]){
+			id[findp] = findq;
+			sz[findq] += sz[findp];
 		} else {
-			id[findp] = find(q);
-			sz[findp] += sz[q];
+			id[findq] = findp;
+			sz[findp] += sz[findq];
 		}
+		System.out.printf("%d-%d: %s\n",p,q,toString());
 	}
 
 	/* (non-Javadoc)
