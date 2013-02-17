@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -107,7 +108,7 @@ public class DequeTest {
   /**
    * Test method for {@link Deque#removeFirst()}.
    */
-  @Test(expected=UnsupportedOperationException.class)
+  @Test(expected=NoSuchElementException.class)
   public void testRemoveFirst() {
     strDeque.removeFirst();
   }
@@ -115,11 +116,29 @@ public class DequeTest {
   /**
    * Test method for {@link Deque#removeLast()}.
    */
-  @Test(expected=UnsupportedOperationException.class)
+  @Test(expected=NoSuchElementException.class)
   public void testRemoveLast() {
     strDeque.removeLast();
   }
 
+  /**
+   * Test method for {@link Deque#iterator()}.
+   */
+  @Test(expected=UnsupportedOperationException.class)
+  public void testRemoveIterator() {
+    Iterator<String> it = strDeque.iterator();
+    it.remove();
+  }
+
+  /**
+   * Test method for {@link Deque#iterator()}.
+   */
+  @Test(expected=NoSuchElementException.class)
+  public void testIteratorNext() {
+    Iterator<String> it = strDeque.iterator();
+    it.next();
+  }
+  
   /**
    * Test method for {@link Deque#addFirst()}.
    */
@@ -209,5 +228,6 @@ public class DequeTest {
     assertEquals("C",strDeque.removeLast());
     assertEquals("B",strDeque.removeLast());
     assertEquals("A",strDeque.removeLast());
-  }  
+  }
+  
 }
