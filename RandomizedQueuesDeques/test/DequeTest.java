@@ -54,6 +54,18 @@ public class DequeTest {
    * Test method for {@link Deque#size()}.
    */
   @Test
+  public void testSizeAndEmptyWithAddFirst() {
+    strDeque.addFirst("A");
+    strDeque.addFirst("B");
+    strDeque.addFirst("C");    
+    assertEquals(strDeque.size(), 3);
+    assertEquals(strDeque.isEmpty(), false);
+  }  
+  
+  /**
+   * Test method for {@link Deque#size()}.
+   */
+  @Test
   public void testSizeAddFirst() {
     strDeque.addFirst("A");
     assertTrue(strDeque.size() == 1);
@@ -62,6 +74,19 @@ public class DequeTest {
     strDeque.addFirst("C");
     assertTrue(strDeque.size() == 3);    
   }
+  
+  /**
+   * Test method for {@link Deque#size()}.
+   */
+  @Test
+  public void testSizeAddLast() {
+    strDeque.addLast("A");
+    assertTrue(strDeque.size() == 1);
+    strDeque.addLast("B");
+    assertTrue(strDeque.size() == 2);
+    strDeque.addLast("C");
+    assertTrue(strDeque.size() == 3);    
+  }  
 
   /**
    * Test method for {@link Deque#addFirst(java.lang.Object)}.
@@ -96,21 +121,93 @@ public class DequeTest {
   }
 
   /**
-   * Test method for {@link Deque#iterator()}.
+   * Test method for {@link Deque#addFirst()}.
    */
   @Test
-  public void testIterator() {
-    Iterator<String> it = strDeque.iterator();
+  public void testAddFirstWithIterator() {
     strDeque.addFirst("A");
     strDeque.addFirst("B");
     strDeque.addFirst("C");
-    assertEquals(strDeque.toString(), "C B A ");
+    Iterator<String> it = strDeque.iterator();
+//    assertEquals(strDeque.toString(), "C B A ");
     assertTrue(it.hasNext());
-    assertTrue(it.next() == "A");
+    assertTrue(it.next() == "C");
     assertTrue(it.hasNext());
     assertTrue(it.next() == "B");
     assertTrue(it.hasNext());
-    assertTrue(it.next() == "C");    
+    assertTrue(it.next() == "A");
+    assertEquals(it.hasNext(), false);
   }
 
+  
+  @Test(expected=UnsupportedOperationException.class)
+  public void testIteratorRemoveException() {
+    strDeque.addFirst("A");
+    Iterator<String> it = strDeque.iterator();
+    it.remove();   
+  }  
+  
+  /**
+   * Test method for {@link Deque#addLast(java.lang.Object)}.
+   */
+  @Test
+  public void testAddLastWithIterator() {
+    strDeque.addLast("A");
+    strDeque.addLast("B");
+    strDeque.addLast("C");
+    Iterator<String> it = strDeque.iterator();
+    assertTrue(it.hasNext());
+    assertEquals(it.next(), "A");
+    assertEquals(it.hasNext(), true);
+    assertEquals(it.next(), "B");
+    assertEquals(it.hasNext(), true);
+    assertEquals(it.next(), "C");
+    assertEquals(it.hasNext(), false);
+  }
+  
+  @Test
+  public void testRemoveFirstSizeAndEmpty() {
+    strDeque.addFirst("A");
+    strDeque.removeFirst();
+    assertEquals(0,strDeque.size());
+    assertEquals(true,strDeque.isEmpty());
+  } 
+  
+  @Test
+  public void testRemoveLastSizeAndEmpty() {
+    strDeque.addFirst("A");
+    strDeque.removeLast();
+    assertEquals(0,strDeque.size());
+    assertEquals(true,strDeque.isEmpty());
+  }   
+  
+  @Test
+  public void testRemoveFirstWithAddFirst() {
+    strDeque.addFirst("A");
+    strDeque.addFirst("B");
+    strDeque.addFirst("C");
+    assertEquals("C",strDeque.removeFirst());
+    assertEquals("B",strDeque.removeFirst());
+    assertEquals("A",strDeque.removeFirst());
+  }
+  
+  @Test
+  public void testRemoveLastWithAddFirst() {
+    strDeque.addFirst("A");
+    strDeque.addFirst("B");
+    strDeque.addFirst("C");
+    assertEquals("A",strDeque.removeLast());
+    assertEquals("B",strDeque.removeLast());
+    assertEquals("C",strDeque.removeLast());
+  }
+  
+  @Test
+  public void testRemoveLastWithAddLast() {
+    strDeque.addLast("A");
+    strDeque.addLast("B");
+    strDeque.addLast("C");
+    assertEquals("C",strDeque.removeLast());
+    assertEquals("B",strDeque.removeLast());
+    assertEquals("A",strDeque.removeLast());
+  }  
 }

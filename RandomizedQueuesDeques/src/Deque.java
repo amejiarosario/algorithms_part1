@@ -17,9 +17,11 @@ public class Deque<Item> implements Iterable<Item> {
   private class Node {
     private Item item;
     private Node next;
+    private Node prev;
     public Node(Item item){
       this.item = item;
       this.next = null;
+      this.prev = null;
     }
   }
   
@@ -43,13 +45,16 @@ public class Deque<Item> implements Iterable<Item> {
   public void addFirst(Item item) {
     if(item == null)
       throw new java.lang.NullPointerException();
-    
     Node node = new Node(item);
-    Node oldfirst = first;
     
-    first = node;
-    first.next = oldfirst;
-    
+    if(first==null){
+      first = last = node;
+    }
+    else{
+      node.next = first;
+      first.prev = node;
+      first = node;
+    }
     N++;
   }
 
@@ -57,22 +62,38 @@ public class Deque<Item> implements Iterable<Item> {
   public void addLast(Item item){
     if(item == null)
       throw new java.lang.NullPointerException();
+    Node node = new Node(item);
+    
+    if(last==null){
+      first = last = node;
+    } else {
+      last.next = node;
+      node.prev = last;
+      last = node;
+    }
+    N++;
   }
 
   // delete and return the item at the front
   public Item removeFirst(){
     if(size() <= 0)
       throw new java.lang.UnsupportedOperationException();
-    return null;
+    Item item = first.item;
+    first = first.next;
+    N--;
+    return item;
   }
   // delete and return the item at the end
   public Item removeLast(){
     if(size() <= 0)
       throw new java.lang.UnsupportedOperationException();
-    return null;
+    Item item = last.item;
+    last = last.prev;
+    N--;
+    return item;
   }
   
-  public String toString(){
+  private String toStr(){
     StringBuilder sb = new StringBuilder();
     Node current = first;
     while(current != null){
@@ -119,6 +140,5 @@ public class Deque<Item> implements Iterable<Item> {
     public void remove() {
       throw new UnsupportedOperationException();
     }
-    
   }
 }
