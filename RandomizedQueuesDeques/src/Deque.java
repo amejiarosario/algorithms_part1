@@ -107,6 +107,7 @@ public class Deque<Item> implements Iterable<Item> {
   public Iterator<Item> iterator(){
     return new LinkedListIterator();
   }
+  
   private class LinkedListIterator implements Iterator<Item> {
     private Node current = first;
 
