@@ -166,4 +166,15 @@ public class RandomizedQueueTest {
       assertEquals(intQueue.capacity(), capacity);
     }
   }
+  
+  @Test
+  public void testCapacityIncreasingAndDecreasing() {
+    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
+    
+    for(int i=0; i<100; i++)
+      intQueue.enqueue(i);
+    
+    for(int i=0; i<100; i++)
+      assertEquals(i, (int) intQueue.dequeue());
+  }
 }
