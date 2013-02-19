@@ -38,8 +38,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     @SuppressWarnings("unchecked")
     Item[] tmp = (Item[]) new Object[capacity];
     for(int i=0; i<N; i++)
-      if(a[head+i] != null)
-        tmp[i] = a[head+i];
+      tmp[i] = a[head+i];
     
     a = tmp;
     head=0;

@@ -106,7 +106,7 @@ public class RandomizedQueueTest {
     it.next();
   }
   
-  @Test
+  @Test(timeout=150)
   public void testIterator() {
     String ele[] = new String[]{"A","B","C","D", "E"};
     ArrayList<String> arr = new ArrayList<String>();
@@ -123,7 +123,7 @@ public class RandomizedQueueTest {
     }
   }
   
-  @Test
+  @Test(timeout=50)
   public void testIteratorToString() {
     String ele[] = new String[]{"A","B","C","D", "E"};
     StringBuilder sb = new StringBuilder();
@@ -135,7 +135,7 @@ public class RandomizedQueueTest {
       assertEquals(strQueue.toStr(), sb.toString());
   }
   
-  @Test
+  @Test(timeout=150)
   public void testCapacityIncreaseDoubling() {
     RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
     for(int i=0; i<100; i++){
@@ -149,7 +149,7 @@ public class RandomizedQueueTest {
     }
   }
 
-  @Test
+  @Test(timeout=150)
   public void testCapacityDecreaseHalving() {
     RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
     
@@ -167,8 +167,27 @@ public class RandomizedQueueTest {
     }
   }
   
-  @Test
-  public void testCapacityIncreasingAndDecreasing() {
+  @Test(timeout=150)
+  public void testSimultaneousIterator() {
+    String ele[] = new String[]{"A","B","C","D", "E"};
+    
+    for(String e: ele)
+      strQueue.enqueue(e);
+    
+    Iterator<String> it = strQueue.iterator();
+    Iterator<String> it2 = strQueue.iterator();
+    
+    for(int i=0; i< ele.length+1; i++){
+      assertEquals(it.hasNext(), true);
+      assertEquals(it2.hasNext(), true);
+      assertNotNull(it.next());
+      assertNotNull(it2.next());
+      assertNotSame(it.next(), it2.next());
+    }
+  }
+  
+  @Test(timeout=150)
+  public void testRandomIncreasingAndDecreasing() {
     RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
     
     for(int i=0; i<100; i++)
@@ -178,7 +197,7 @@ public class RandomizedQueueTest {
       assertNotSame(i, (int) intQueue.dequeue());
   }
   
-  @Test
+  @Test(timeout=150)
   public void testSample(){
     RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
     int N = 100;
@@ -189,8 +208,8 @@ public class RandomizedQueueTest {
       arr[i] = false;
     }
     
-    for(int i=0; i < N/10; i++){
-      System.out.println(i);
+    for(int i=0; i < N; i++){
+      //System.out.println(i);
       int num = intQueue.sample();
       assertEquals(arr[num], false);
       arr[num] = true;
