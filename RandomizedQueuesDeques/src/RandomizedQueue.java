@@ -33,23 +33,26 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   }
   
   private void resize(int capacity) {
+//    System.out.println("resize");
     if(capacity < N || capacity < 1)
       return;
     @SuppressWarnings("unchecked")
     Item[] tmp = (Item[]) new Object[capacity];
+    
     for(int i=0; i<N; i++)
       tmp[i] = a[head+i];
     
     a = tmp;
     head=0;
     tail=N;
-//    System.out.println("resize="+a.length);
+    StdRandom.shuffle(a,head,tail-1);
   }
   
   public void enqueue(Item item)     // add the item
   {
     if(N >= a.length)
       resize(2*a.length);
+    
     a[tail++] = item;
     N++;
   }

@@ -74,6 +74,25 @@ public class RandomizedQueueTest {
   }
   
   @Test(timeout=50)
+  public void testEnqueueSize() {
+    String ele[] = new String[]{"A","B","C","D", "E"};
+    
+    for(String e: ele)
+      strQueue.enqueue(e);
+    
+    int count=-1;
+    Iterator<String> it = strQueue.iterator();
+    while(it.hasNext()){
+      it.next();
+      count++;
+    }
+    
+//    System.out.println(strQueue.toStr());
+    assertEquals(ele.length,count);
+  }
+  
+  // FIXME make it random ready
+  @Test(timeout=50)
   public void testEnqueueAndQueueueWithNItems() {
     String ele[] = new String[]{"A","B","C","D", "E"};
     for(String e: ele)
@@ -106,6 +125,7 @@ public class RandomizedQueueTest {
     it.next();
   }
   
+  // FIXME make it random ready
   @Test(timeout=150)
   public void testIterator() {
     String ele[] = new String[]{"A","B","C","D", "E"};
@@ -123,6 +143,7 @@ public class RandomizedQueueTest {
     }
   }
   
+  // FIXME make it random ready
   @Test(timeout=50)
   public void testIteratorToString() {
     String ele[] = new String[]{"A","B","C","D", "E"};
@@ -131,8 +152,7 @@ public class RandomizedQueueTest {
       sb.append(e+" ");
       strQueue.enqueue(e);
     }
-    
-      assertEquals(strQueue.toStr(), sb.toString());
+    assertEquals(sb.toString(), strQueue.toStr());
   }
   
   @Test(timeout=150)
@@ -180,10 +200,16 @@ public class RandomizedQueueTest {
     for(int i=0; i< ele.length+1; i++){
       assertEquals(it.hasNext(), true);
       assertEquals(it2.hasNext(), true);
-      assertNotNull(it.next());
-      assertNotNull(it2.next());
-      assertNotSame(it.next(), it2.next());
+      it.next();
     }
+    assertEquals(it.hasNext(), false);
+    assertEquals(it2.hasNext(), true);
+    
+    for(int i=0; i< ele.length+1; i++){
+      assertEquals(it2.hasNext(), true);
+      it2.next();
+    }
+    assertEquals(it2.hasNext(), false);    
   }
   
   @Test(timeout=150)
