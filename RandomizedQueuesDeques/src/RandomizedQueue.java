@@ -38,7 +38,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     @SuppressWarnings("unchecked")
     Item[] tmp = (Item[]) new Object[capacity];
     for(int i=0; i<N; i++)
-      tmp[i] = a[head+i];
+      if(a[head+i] != null)
+        tmp[i] = a[head+i];
+    
     a = tmp;
     head=0;
     tail=N;
@@ -67,7 +69,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   
   public Item sample()               // return (but do not delete) a random item
   {
-    return null;
+    Item sample;
+    do{
+      sample = a[StdRandom.uniform(head, tail)];
+    }while(sample == null);
+    
+    return sample;
   }
   
   public Iterator<Item> iterator()   // return an independent iterator over items in random order

@@ -55,7 +55,7 @@ public class RandomizedQueueTest {
     assertEquals(strQueue.isEmpty(), false);
   }
   
-  @Test
+  @Test(timeout=50)
   public void testSizeAndEmptyWithQueueue() {
     strQueue.enqueue("A");
     strQueue.enqueue("B");
@@ -67,13 +67,13 @@ public class RandomizedQueueTest {
     assertEquals(strQueue.isEmpty(), true);
   }
   
-  @Test
+  @Test(timeout=50)
   public void testEnqueueAndQueueue() {
     strQueue.enqueue("A");
     assertEquals("A",strQueue.dequeue());
   }
   
-  @Test
+  @Test(timeout=50)
   public void testEnqueueAndQueueueWithNItems() {
     String ele[] = new String[]{"A","B","C","D", "E"};
     for(String e: ele)
@@ -175,6 +175,25 @@ public class RandomizedQueueTest {
       intQueue.enqueue(i);
     
     for(int i=0; i<100; i++)
-      assertEquals(i, (int) intQueue.dequeue());
+      assertNotSame(i, (int) intQueue.dequeue());
+  }
+  
+  @Test
+  public void testSample(){
+    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
+    int N = 100;
+    Boolean arr[] = new Boolean[N];
+    
+    for(int i=0; i<N; i++){
+      intQueue.enqueue(i);
+      arr[i] = false;
+    }
+    
+    for(int i=0; i < N/10; i++){
+      System.out.println(i);
+      int num = intQueue.sample();
+      assertEquals(arr[num], false);
+      arr[num] = true;
+    }
   }
 }
