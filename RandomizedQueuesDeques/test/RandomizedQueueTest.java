@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ *
  */
 
 /**
@@ -22,7 +22,7 @@ import org.junit.Test;
 public class RandomizedQueueTest {
 
   private RandomizedQueue<String> strQueue;
-  
+
   /**
    * @throws java.lang.Exception
    */
@@ -35,27 +35,27 @@ public class RandomizedQueueTest {
   public void testIsEmpty() {
     assertTrue(strQueue.isEmpty());
   }
-  
+
   @Test
   public void testSize() {
     assertTrue(strQueue.size() == 0);
   }
-  
+
   @Test
   public void testIsNotEmpty() {
     strQueue.enqueue("A");
     assertFalse(strQueue.isEmpty());
-  }  
+  }
 
   @Test
   public void testSizeAndEmptyWithEnqueue() {
     strQueue.enqueue("A");
     strQueue.enqueue("B");
-    strQueue.enqueue("C");    
+    strQueue.enqueue("C");
     assertEquals(strQueue.size(), 3);
     assertEquals(strQueue.isEmpty(), false);
   }
-  
+
   @Test(timeout=50)
   public void testSizeAndEmptyWithQueueue() {
     strQueue.enqueue("A");
@@ -63,41 +63,41 @@ public class RandomizedQueueTest {
     strQueue.enqueue("C");
     strQueue.dequeue();
     strQueue.dequeue();
-    strQueue.dequeue();      
+    strQueue.dequeue();
     assertEquals(strQueue.size(), 0);
     assertEquals(strQueue.isEmpty(), true);
   }
-  
+
   @Test(timeout=50)
   public void testEnqueueAndQueueue() {
     strQueue.enqueue("A");
     assertEquals("A",strQueue.dequeue());
   }
-  
+
   @Test(timeout=50)
   public void testEnqueueSize() {
     String ele[] = new String[]{"A","B","C","D", "E"};
-    
+
     for(String e: ele)
       strQueue.enqueue(e);
-    
+
     int count=-1;
     Iterator<String> it = strQueue.iterator();
     while(it.hasNext()){
       it.next();
       count++;
     }
-    
+
 //    System.out.println(strQueue.toStr());
     assertEquals(ele.length,count);
   }
-  
+
   @Test(timeout=50)
   public void testEnqueueAndQueueueWithNItems() {
     String ele[] = new String[]{"A","B","C","D", "E"};
     for(String e: ele)
       strQueue.enqueue(e);
-    
+
     ArrayList<String> arr = new ArrayList<String>();
     for(String e: ele)
       arr.add(e);
@@ -106,24 +106,24 @@ public class RandomizedQueueTest {
       assertThat(arr, hasItem(strQueue.dequeue()));
     }
   }
-  
+
   @Test(expected=NoSuchElementException.class)
   public void testEnqueueAndQueueueUnderflow() {
     strQueue.dequeue();
   }
- 
+
   @Test(expected=UnsupportedOperationException.class)
   public void testRemoveIterator() {
     Iterator<String> it = strQueue.iterator();
     it.remove();
   }
-  
+
   @Test(expected=NoSuchElementException.class)
   public void testIteratorNext() {
     Iterator<String> it = strQueue.iterator();
     it.next();
   }
-  
+
   // FIXME make it random ready
   @Test(timeout=150)
   public void testIterator() {
@@ -131,17 +131,17 @@ public class RandomizedQueueTest {
     ArrayList<String> arr = new ArrayList<String>();
     for(String e: ele)
       arr.add(e);
-    
+
     for(String e: ele)
       strQueue.enqueue(e);
-    
+
     Iterator<String> it = strQueue.iterator();
     for(String e: ele){
       assertEquals(it.hasNext(), true);
       assertThat(arr, hasItem(it.next()));
     }
   }
-  
+
   // FIXME make it random ready
 //  @Test(timeout=50)
 //  public void testIteratorToString() {
@@ -151,7 +151,7 @@ public class RandomizedQueueTest {
 //      sb.append(e+" ");
 //      strQueue.enqueue(e);
 //    }
-//    
+//
 //    String[] expected = sb.toString().split(" ");
 //    String[] actual = strQueue.toStr().split(" ");
 //    Arrays.sort(expected);
@@ -160,7 +160,7 @@ public class RandomizedQueueTest {
 //      assertEquals(expected[j], actual[j]);
 //    }
 //  }
-  
+
 //  @Test(timeout=150)
 //  public void testCapacityIncreaseDoubling() {
 //    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
@@ -178,12 +178,12 @@ public class RandomizedQueueTest {
 //  @Test(timeout=150)
 //  public void testCapacityDecreaseHalving() {
 //    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
-//    
+//
 //    for(int i=0; i<100; i++)
 //      intQueue.enqueue(i);
-//    
+//
 //    int capacity = 128;
-//    
+//
 //    for(int i=99; i>=0; i--){
 //      intQueue.dequeue();
 //      if(capacity/4 > intQueue.size())
@@ -192,17 +192,17 @@ public class RandomizedQueueTest {
 //      assertEquals(intQueue.capacity(), capacity);
 //    }
 //  }
-  
+
   @Test(timeout=150)
   public void testSimultaneousIterator() {
     String ele[] = new String[]{"A","B","C","D", "E"};
-    
+
     for(String e: ele)
       strQueue.enqueue(e);
-    
+
     Iterator<String> it = strQueue.iterator();
     Iterator<String> it2 = strQueue.iterator();
-    
+
     for(int i=0; i< ele.length+1; i++){
       assertEquals(it.hasNext(), true);
       assertEquals(it2.hasNext(), true);
@@ -210,30 +210,30 @@ public class RandomizedQueueTest {
     }
     assertEquals(it.hasNext(), false);
     assertEquals(it2.hasNext(), true);
-    
+
     for(int i=0; i< ele.length+1; i++){
       assertEquals(it2.hasNext(), true);
       it2.next();
     }
-    assertEquals(it2.hasNext(), false);    
+    assertEquals(it2.hasNext(), false);
   }
-  
+
   @Test(timeout=200)
   public void testEnqueueDequeue() {
     RandomizedQueue<Integer> q = new RandomizedQueue<Integer>();
-    
+
       for(int j=0; j<5; j++){
           q.enqueue(j);
           q.dequeue();
       }
       assertEquals(q.isEmpty(), true);
   }
-  
-  
+
+
   @Test(timeout=1000)
   public void testMultipleEnqueueMultipleDequeue() {
     RandomizedQueue<Integer> q = new RandomizedQueue<Integer>();
-    
+
     for(int y=1; y<2+100; y++)
       for(int j=0; j<50; j++){
         for(int x=0; x<y; x++){
@@ -248,5 +248,5 @@ public class RandomizedQueueTest {
         assertEquals(q.isEmpty(), true);
       }
   }
-  
+
 }
