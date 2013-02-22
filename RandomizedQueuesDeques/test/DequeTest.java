@@ -144,6 +144,45 @@ public class DequeTest {
     assertEquals(q.isEmpty(), true);
   }
   
+  @Test(timeout=200)
+  public void testAddFirstAddLastRemoveFirstRemoveLast() {
+    Deque<Integer> q = new Deque<Integer>();
+    
+    for(int j=0; j<4; j++)
+      q.addLast(j);
+    
+    for(int j=10; j<14; j++)
+      q.addFirst(j);
+    
+    q.addFirst(100);
+    q.addLast(5);
+    
+    // q = {13,12,11,10,0,1,2,3}
+    
+    assertEquals(100,(int)q.removeFirst());
+    assertEquals(5,(int)q.removeLast());
+    
+    assertEquals(13,(int)q.removeFirst());
+    assertEquals(3,(int)q.removeLast());
+    
+    for(int j=0; j<2; j++)
+      assertEquals(2-j,(int)q.removeLast());
+    
+    for(int j=0; j<3; j++)
+      assertEquals(12-j,(int)q.removeFirst());
+    
+    assertEquals(0,(int)q.removeLast());
+    
+    assertEquals(q.isEmpty(), true);
+    
+    for(int j=0; j<50; j++)
+      q.addLast(j);
+    
+    for(int j=0; j<50; j++)
+      assertEquals(49-j ,(int)q.removeLast());
+    
+  }
+  
   /**
    * Test method for {@link Deque#addLast(java.lang.Object)}.
    */

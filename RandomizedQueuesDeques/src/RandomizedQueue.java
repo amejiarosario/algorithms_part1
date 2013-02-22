@@ -49,13 +49,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   {
     if(item == null)
       throw new NullPointerException();
-    
+
 //    System.out.println("\t(enqueue="+item+") head="+head+"; "+"tail="+tail+"; N="+N+"; capacity="+capacity());
-    
+
     a[tail++] = item;
     tail %= a.length;
     N++;
-    
+
     if(N == a.length)
       resize(2*a.length);
   }
@@ -66,16 +66,16 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       throw new NoSuchElementException("Queue underflow");
 
 //    System.out.println("\t(dequeue) head="+head+"; "+"tail="+tail+"; N="+N+"; capacity="+capacity());
-    
+
     Item value = a[head];
     a[head] = null;
     head++;
     head %= a.length;
     N--;
-    
+
     if(N > 0 && N == a.length/4)
       resize(a.length/2);
-   
+
     return value;
   }
 
@@ -83,10 +83,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   {
     if (isEmpty())
       throw new NoSuchElementException("Queue underflow");
-    
+
     Item sample;
     do{
-      sample = a[StdRandom.uniform(head, tail)];
+      sample = a[(head+StdRandom.uniform(N)) % a.length];
     }while(sample == null);
 
     return sample;
@@ -119,7 +119,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public Item next() {
       if(isEmpty())
         throw new NoSuchElementException();
-      
+
       if(hasNext())
         return a[current++];
       return null;

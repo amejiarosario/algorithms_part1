@@ -229,6 +229,7 @@ public class RandomizedQueueTest {
       assertEquals(q.isEmpty(), true);
   }
   
+  
   @Test(timeout=1000)
   public void testMultipleEnqueueMultipleDequeue() {
     RandomizedQueue<Integer> q = new RandomizedQueue<Integer>();
@@ -238,6 +239,7 @@ public class RandomizedQueueTest {
         for(int x=0; x<y; x++){
 //          System.out.println("q << "+j);
           q.enqueue(j);
+          q.sample();
         }
         for(int x=0; x<y; x++){
           int v = q.dequeue();
@@ -247,33 +249,4 @@ public class RandomizedQueueTest {
       }
   }
   
-//  @Test(timeout=150)
-//  public void testRandomIncreasingAndDecreasing() {
-//    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
-//    
-//    for(int i=0; i<100; i++)
-//      intQueue.enqueue(i);
-//    
-//    for(int i=0; i<100; i++)
-//      assertNotSame(i, (int) intQueue.dequeue());
-//  }
-//  
-//  @Test(timeout=150)
-//  public void testSample(){
-//    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
-//    int N = 100;
-//    Boolean arr[] = new Boolean[N];
-//    
-//    for(int i=0; i<N; i++){
-//      intQueue.enqueue(i);
-//      arr[i] = false;
-//    }
-//    
-//    for(int i=0; i < N; i++){
-//      //System.out.println(i);
-//      int num = intQueue.sample();
-//      assertEquals(arr[num], false);
-//      arr[num] = true;
-//    }
-//  }
 }
