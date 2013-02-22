@@ -99,9 +99,21 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
   private class TheIterator implements Iterator<Item> {
     private int current;
+    private Item[] array;
 
     public TheIterator(){
-      current = head;
+      current = 0;
+      fit();
+    }
+
+    private void fit(){
+      @SuppressWarnings("unchecked")
+      array = (Item[]) new Object[N];
+
+      for(int i=0; i<N; i++)
+        array[i] = a[(head+i) % a.length];
+
+      StdRandom.shuffle(array);
     }
 
     /* (non-Javadoc)
@@ -109,7 +121,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      */
     @Override
     public boolean hasNext() {
-      return current <= tail;
+      return current < N;
     }
 
     /* (non-Javadoc)
@@ -117,12 +129,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      */
     @Override
     public Item next() {
-      if(isEmpty())
+      if(current == N)
         throw new NoSuchElementException();
 
       if(hasNext())
-        return a[current++];
-      return null;
+        return array[current++];
     }
 
     /* (non-Javadoc)
