@@ -133,35 +133,35 @@ public class ResizableArrayQueueTest {
       assertEquals(strQueue.toStr(), sb.toString());
   }
   
-  @Test
-  public void testCapacityIncreaseDoubling() {
-    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
-    for(int i=0; i<100; i++){
-      intQueue.enqueue(i);
-      if(i<2) assertEquals(intQueue.capacity(), 2);
-      else{
-        int nextLg = (int) Math.pow(2,Math.ceil(Math.log(i+1)/Math.log(2)));
-//        System.out.println(String.format("i=%d; capacity=%d; nextLog=%d",i,intQueue.capacity(), nextLg));
-        assertEquals(intQueue.capacity(), nextLg);
-      }
-    }
-  }
+//  @Test
+//  public void testCapacityIncreaseDoubling() {
+//    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
+//    for(int i=0; i<100; i++){
+//      intQueue.enqueue(i);
+//      if(i<2) assertEquals(intQueue.capacity(), 2);
+//      else{
+//        int nextLg = (int) Math.pow(2,Math.ceil(Math.log(i+1)/Math.log(2)));
+////        System.out.println(String.format("i=%d; capacity=%d; nextLog=%d",i,intQueue.capacity(), nextLg));
+//        assertEquals(intQueue.capacity(), nextLg);
+//      }
+//    }
+//  }
 
-  @Test
-  public void testCapacityDecreaseHalving() {
-    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
-    
-    for(int i=0; i<100; i++)
-      intQueue.enqueue(i);
-    
-    int capacity = 128;
-    
-    for(int i=99; i>=0; i--){
-      intQueue.dequeue();
-      if(capacity/4 > intQueue.size())
-        capacity /= 2;
-      //System.out.println(String.format("i=%d; N=%d a_capacity=%d; e_capacity=%d",i,intQueue.size(), intQueue.capacity(), capacity));
-      assertEquals(intQueue.capacity(), capacity);
-    }
-  }
+//  @Test
+//  public void testCapacityDecreaseHalving() {
+//    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
+//    
+//    for(int i=0; i<100; i++)
+//      intQueue.enqueue(i);
+//    
+//    int capacity = 128;
+//    
+//    for(int i=99; i>=0; i--){
+//      intQueue.dequeue();
+//      if(capacity/4 > intQueue.size())
+//        capacity /= 2;
+//      //System.out.println(String.format("i=%d; N=%d a_capacity=%d; e_capacity=%d",i,intQueue.size(), intQueue.capacity(), capacity));
+//      assertEquals(intQueue.capacity(), capacity);
+//    }
+//  }
 }

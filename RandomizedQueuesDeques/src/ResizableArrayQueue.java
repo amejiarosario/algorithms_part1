@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 
 
 /**
- * 
+ *
  */
 
 /**
@@ -15,7 +15,7 @@ public class ResizableArrayQueue<Item> implements Iterable<Item> {
   private int N;
   private int head;
   private int tail;
-  
+
   @SuppressWarnings("unchecked")
   public ResizableArrayQueue()           // construct an empty randomized queue
   {
@@ -27,12 +27,12 @@ public class ResizableArrayQueue<Item> implements Iterable<Item> {
   {
     return size() == 0;
   }
-  
+
   public int size()                  // return the number of items on the queue
   {
     return N;
   }
-  
+
   private void resize(int capacity) {
     if(capacity < N || capacity < 1)
       return;
@@ -45,7 +45,7 @@ public class ResizableArrayQueue<Item> implements Iterable<Item> {
     tail=N;
 //    System.out.println("resize="+a.length);
   }
-  
+
   public void enqueue(Item item)     // add the item
   {
     if(N >= a.length)
@@ -56,29 +56,29 @@ public class ResizableArrayQueue<Item> implements Iterable<Item> {
 
   public Item dequeue()              // delete and return a random item
   {
-    if (isEmpty()) 
+    if (isEmpty())
       throw new NoSuchElementException("Queue underflow");
-    
+
     if(N==a.length/4)
       resize(a.length/2);
-    
+
     N--;
     return a[head++];
   }
-  
+
   public Item sample()               // return (but do not delete) a random item
   {
     return null;
   }
-  
+
   public Iterator<Item> iterator()   // return an independent iterator over items in random order
   {
     return new TheIterator();
   }
-  
+
   private class TheIterator implements Iterator<Item> {
     private int current;
-    
+
     public TheIterator(){
       current = head;
     }
@@ -96,7 +96,7 @@ public class ResizableArrayQueue<Item> implements Iterable<Item> {
      */
     @Override
     public Item next() {
-      if(isEmpty()) 
+      if(isEmpty())
         throw new NoSuchElementException();
       if(hasNext())
         return a[current++];
@@ -111,15 +111,15 @@ public class ResizableArrayQueue<Item> implements Iterable<Item> {
       throw new UnsupportedOperationException();
     }
 
-    
+
   }
-  
+
   // FIXME: make it private before submitting homework
-  
+
   public int capacity(){
     return a.length;
   }
-  
+
   public String toStr(){
     StringBuilder sb = new StringBuilder();
     for(Item i : a){
@@ -130,5 +130,5 @@ public class ResizableArrayQueue<Item> implements Iterable<Item> {
     }
     return sb.toString();
   }
-  
+
 }

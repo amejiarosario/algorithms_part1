@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * 
+ *
  */
 
 /**
@@ -14,7 +14,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   private int N;
   private int head;
   private int tail;
-  
+
   @SuppressWarnings("unchecked")
   public RandomizedQueue()           // construct an empty randomized queue
   {
@@ -26,67 +26,73 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   {
     return size() == 0;
   }
-  
+
   public int size()                  // return the number of items on the queue
   {
     return N;
   }
-  
+
   private void resize(int capacity) {
 //    System.out.println("resize");
     if(capacity < N || capacity < 1)
       return;
     @SuppressWarnings("unchecked")
     Item[] tmp = (Item[]) new Object[capacity];
-    
+
     for(int i=0; i<N; i++)
       tmp[i] = a[head+i];
-    
+
     a = tmp;
     head=0;
     tail=N;
     StdRandom.shuffle(a,head,tail-1);
   }
-  
+
   public void enqueue(Item item)     // add the item
   {
+    if(item == null)
+      throw new NullPointerException();
+    
     if(N >= a.length)
       resize(2*a.length);
-    
+
     a[tail++] = item;
     N++;
   }
 
   public Item dequeue()              // delete and return a random item
   {
-    if (isEmpty()) 
+    if (isEmpty())
       throw new NoSuchElementException("Queue underflow");
-    
+
     if(N==a.length/4)
       resize(a.length/2);
-    
+
     N--;
     return a[head++];
   }
-  
+
   public Item sample()               // return (but do not delete) a random item
   {
+    if (isEmpty())
+      throw new NoSuchElementException("Queue underflow");
+    
     Item sample;
     do{
       sample = a[StdRandom.uniform(head, tail)];
     }while(sample == null);
-    
+
     return sample;
   }
-  
+
   public Iterator<Item> iterator()   // return an independent iterator over items in random order
   {
     return new TheIterator();
   }
-  
+
   private class TheIterator implements Iterator<Item> {
     private int current;
-    
+
     public TheIterator(){
       current = head;
     }
@@ -104,8 +110,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      */
     @Override
     public Item next() {
-      if(isEmpty()) 
+      if(isEmpty())
         throw new NoSuchElementException();
+      
       if(hasNext())
         return a[current++];
       return null;
@@ -118,17 +125,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public void remove() {
       throw new UnsupportedOperationException();
     }
-
-    
   }
-  
-  // FIXME: make it private before submitting homework
-  
-  public int capacity(){
+
+  private int capacity(){
     return a.length;
   }
-  
-  public String toStr(){
+
+  private String toStr(){
     StringBuilder sb = new StringBuilder();
     for(Item i : a){
       if(i!=null){
@@ -138,5 +141,5 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
     return sb.toString();
   }
-  
+
 }

@@ -143,55 +143,55 @@ public class RandomizedQueueTest {
   }
   
   // FIXME make it random ready
-  @Test(timeout=50)
-  public void testIteratorToString() {
-    String ele[] = new String[]{"A","B","C","D", "E"};
-    StringBuilder sb = new StringBuilder();
-    for(String e: ele){
-      sb.append(e+" ");
-      strQueue.enqueue(e);
-    }
-    
-    String[] expected = sb.toString().split(" ");
-    String[] actual = strQueue.toStr().split(" ");
-    Arrays.sort(expected);
-    Arrays.sort(actual);
-    for(int j=0; j<expected.length; j++){
-      assertEquals(expected[j], actual[j]);
-    }
-  }
+//  @Test(timeout=50)
+//  public void testIteratorToString() {
+//    String ele[] = new String[]{"A","B","C","D", "E"};
+//    StringBuilder sb = new StringBuilder();
+//    for(String e: ele){
+//      sb.append(e+" ");
+//      strQueue.enqueue(e);
+//    }
+//    
+//    String[] expected = sb.toString().split(" ");
+//    String[] actual = strQueue.toStr().split(" ");
+//    Arrays.sort(expected);
+//    Arrays.sort(actual);
+//    for(int j=0; j<expected.length; j++){
+//      assertEquals(expected[j], actual[j]);
+//    }
+//  }
   
-  @Test(timeout=150)
-  public void testCapacityIncreaseDoubling() {
-    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
-    for(int i=0; i<100; i++){
-      intQueue.enqueue(i);
-      if(i<2) assertEquals(intQueue.capacity(), 2);
-      else{
-        int nextLg = (int) Math.pow(2,Math.ceil(Math.log(i+1)/Math.log(2)));
-//        System.out.println(String.format("i=%d; capacity=%d; nextLog=%d",i,intQueue.capacity(), nextLg));
-        assertEquals(intQueue.capacity(), nextLg);
-      }
-    }
-  }
+//  @Test(timeout=150)
+//  public void testCapacityIncreaseDoubling() {
+//    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
+//    for(int i=0; i<100; i++){
+//      intQueue.enqueue(i);
+//      if(i<2) assertEquals(intQueue.capacity(), 2);
+//      else{
+//        int nextLg = (int) Math.pow(2,Math.ceil(Math.log(i+1)/Math.log(2)));
+////        System.out.println(String.format("i=%d; capacity=%d; nextLog=%d",i,intQueue.capacity(), nextLg));
+//        assertEquals(intQueue.capacity(), nextLg);
+//      }
+//    }
+//  }
 
-  @Test(timeout=150)
-  public void testCapacityDecreaseHalving() {
-    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
-    
-    for(int i=0; i<100; i++)
-      intQueue.enqueue(i);
-    
-    int capacity = 128;
-    
-    for(int i=99; i>=0; i--){
-      intQueue.dequeue();
-      if(capacity/4 > intQueue.size())
-        capacity /= 2;
-      //System.out.println(String.format("i=%d; N=%d a_capacity=%d; e_capacity=%d",i,intQueue.size(), intQueue.capacity(), capacity));
-      assertEquals(intQueue.capacity(), capacity);
-    }
-  }
+//  @Test(timeout=150)
+//  public void testCapacityDecreaseHalving() {
+//    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();
+//    
+//    for(int i=0; i<100; i++)
+//      intQueue.enqueue(i);
+//    
+//    int capacity = 128;
+//    
+//    for(int i=99; i>=0; i--){
+//      intQueue.dequeue();
+//      if(capacity/4 > intQueue.size())
+//        capacity /= 2;
+//      //System.out.println(String.format("i=%d; N=%d a_capacity=%d; e_capacity=%d",i,intQueue.size(), intQueue.capacity(), capacity));
+//      assertEquals(intQueue.capacity(), capacity);
+//    }
+//  }
   
   @Test(timeout=150)
   public void testSimultaneousIterator() {

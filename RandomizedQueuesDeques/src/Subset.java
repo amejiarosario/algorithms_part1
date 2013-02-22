@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 
 /**
@@ -15,7 +15,7 @@ public class Subset {
     RandomizedQueue<String> q = new RandomizedQueue<String>();
     if(args.length != 1)
       throw new IllegalArgumentException();
-    
+
     String str;
     while(!StdIn.isEmpty()){
       str = StdIn.readString();

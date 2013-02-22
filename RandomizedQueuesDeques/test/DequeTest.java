@@ -98,6 +98,53 @@ public class DequeTest {
   }
 
   /**
+   * Test method for {@link Deque#addFirst(java.lang.Object)}.
+   */
+  @Test(timeout=200)
+  public void testAddFirstAndRemoveLast() {
+    Deque<Integer> q = new Deque<Integer>();
+    
+    for(int j=0; j<5; j++){
+      System.out.println(j);
+      q.addFirst(j);
+      assertEquals((int)q.removeLast(), (int)j);
+    }
+  }
+  
+  @Test(timeout=200)
+  public void testAddFirstAndRemoveFirst() {
+    Deque<Integer> q = new Deque<Integer>();
+    
+    for(int j=0; j<5; j++){
+      System.out.println(j);
+      q.addFirst(j);
+      assertEquals((int)q.removeFirst(), (int)j);
+    }
+  }
+  
+  @Test(timeout=200)
+  public void testAddLastAndRemoveLast() {
+    Deque<Integer> q = new Deque<Integer>();
+    
+    for(int j=0; j<5; j++){
+      System.out.println(j);
+      q.addLast(j);
+      assertEquals((int)q.removeLast(), (int)j);
+    }
+  }
+  
+  @Test(timeout=200)
+  public void testAddLastAndRemoveFirst() {
+    Deque<Integer> q = new Deque<Integer>();
+    
+    for(int j=0; j<5; j++){
+      System.out.println(j);
+      q.addLast(j);
+      assertEquals((int)q.removeFirst(), (int)j);
+    }
+  }
+  
+  /**
    * Test method for {@link Deque#addLast(java.lang.Object)}.
    */
   @Test(expected=NullPointerException.class)

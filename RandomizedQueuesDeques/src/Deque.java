@@ -13,18 +13,20 @@ public class Deque<Item> implements Iterable<Item> {
   private int N;
   private Node first;
   private Node last;
-  
+
   private class Node {
     private Item item;
     private Node next;
     private Node prev;
     public Node(Item item){
+      if(item == null)
+        throw new java.lang.NullPointerException();
       this.item = item;
       this.next = null;
       this.prev = null;
     }
   }
-  
+
   // construct an empty deque
   public Deque(){
     N = 0;
@@ -45,12 +47,12 @@ public class Deque<Item> implements Iterable<Item> {
   public void addFirst(Item item) {
     if(item == null)
       throw new java.lang.NullPointerException();
-    Node node = new Node(item);
     
+    Node node = new Node(item);
+
     if(first==null){
       first = last = node;
-    }
-    else{
+    } else {
       node.next = first;
       first.prev = node;
       first = node;
@@ -62,9 +64,10 @@ public class Deque<Item> implements Iterable<Item> {
   public void addLast(Item item){
     if(item == null)
       throw new java.lang.NullPointerException();
-    Node node = new Node(item);
     
-    if(last==null){
+    Node node = new Node(item);
+
+    if(last == null){
       first = last = node;
     } else {
       last.next = node;
@@ -78,8 +81,13 @@ public class Deque<Item> implements Iterable<Item> {
   public Item removeFirst(){
     if(isEmpty())
       throw new NoSuchElementException();
+    
     Item item = first.item;
     first = first.next;
+    
+    if(first == null)
+      last = null;
+    
     N--;
     return item;
   }
@@ -87,12 +95,17 @@ public class Deque<Item> implements Iterable<Item> {
   public Item removeLast(){
     if(isEmpty())
       throw new NoSuchElementException();
+    
     Item item = last.item;
     last = last.prev;
+    
+    if(last == null)
+      first = null;
+    
     N--;
     return item;
   }
-  
+
   private String toStr(){
     StringBuilder sb = new StringBuilder();
     Node current = first;
@@ -102,12 +115,12 @@ public class Deque<Item> implements Iterable<Item> {
     }
     return sb.toString();
   }
-  
+
   // return an iterator over items in order from front to end
   public Iterator<Item> iterator(){
     return new LinkedListIterator();
   }
-  
+
   private class LinkedListIterator implements Iterator<Item> {
     private Node current = first;
 
@@ -127,7 +140,7 @@ public class Deque<Item> implements Iterable<Item> {
      */
     @Override
     public Item next() {
-      if (!hasNext()) 
+      if (!hasNext())
         throw new NoSuchElementException();
       Item item = current.item;
       current = current.next;
