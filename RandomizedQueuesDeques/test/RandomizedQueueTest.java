@@ -218,6 +218,35 @@ public class RandomizedQueueTest {
     assertEquals(it2.hasNext(), false);    
   }
   
+  @Test(timeout=200)
+  public void testEnqueueDequeue() {
+    RandomizedQueue<Integer> q = new RandomizedQueue<Integer>();
+    
+      for(int j=0; j<5; j++){
+          q.enqueue(j);
+          q.dequeue();
+      }
+      assertEquals(q.isEmpty(), true);
+  }
+  
+  @Test(timeout=1000)
+  public void testMultipleEnqueueMultipleDequeue() {
+    RandomizedQueue<Integer> q = new RandomizedQueue<Integer>();
+    
+    for(int y=1; y<2+100; y++)
+      for(int j=0; j<50; j++){
+        for(int x=0; x<y; x++){
+//          System.out.println("q << "+j);
+          q.enqueue(j);
+        }
+        for(int x=0; x<y; x++){
+          int v = q.dequeue();
+//          System.out.println("q >> "+ v+"\n");
+        }
+        assertEquals(q.isEmpty(), true);
+      }
+  }
+  
 //  @Test(timeout=150)
 //  public void testRandomIncreasingAndDecreasing() {
 //    RandomizedQueue<Integer> intQueue = new RandomizedQueue<Integer>();

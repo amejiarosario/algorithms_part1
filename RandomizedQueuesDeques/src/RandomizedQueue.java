@@ -24,7 +24,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
   public boolean isEmpty()           // is the queue empty?
   {
-    return size() == 0;
+    return size() <= 0;
   }
 
   public int size()                  // return the number of items on the queue
@@ -33,14 +33,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   }
 
   private void resize(int capacity) {
-//    System.out.println("resize");
-    if(capacity < N || capacity < 1)
-      return;
     @SuppressWarnings("unchecked")
     Item[] tmp = (Item[]) new Object[capacity];
 
     for(int i=0; i<N; i++)
-      tmp[i] = a[head+i];
+      tmp[i] = a[(head+i) % a.length];
 
     a = tmp;
     head=0;
@@ -53,11 +50,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     if(item == null)
       throw new NullPointerException();
     
-    if(N >= a.length)
-      resize(2*a.length);
-
+//    System.out.println("\t(enqueue="+item+") head="+head+"; "+"tail="+tail+"; N="+N+"; capacity="+capacity());
+    
     a[tail++] = item;
+    tail %= a.length;
     N++;
+    
+    if(N == a.length)
+      resize(2*a.length);
   }
 
   public Item dequeue()              // delete and return a random item
@@ -65,11 +65,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     if (isEmpty())
       throw new NoSuchElementException("Queue underflow");
 
-    if(N==a.length/4)
-      resize(a.length/2);
-
+//    System.out.println("\t(dequeue) head="+head+"; "+"tail="+tail+"; N="+N+"; capacity="+capacity());
+    
+    Item value = a[head];
+    a[head] = null;
+    head++;
+    head %= a.length;
     N--;
-    return a[head++];
+    
+    if(N > 0 && N == a.length/4)
+      resize(a.length/2);
+   
+    return value;
   }
 
   public Item sample()               // return (but do not delete) a random item
