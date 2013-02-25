@@ -106,7 +106,7 @@ public class DequeTest {
     
     for(int j=0; j<50; j++){
       q.addFirst(j);
-      assertEquals((int)q.removeLast(), (int)j);
+      assertEquals(j,(int)q.removeLast());
     }
     assertEquals(q.isEmpty(), true);
   }
@@ -315,5 +315,59 @@ public class DequeTest {
     assertEquals("B",strDeque.removeLast());
     assertEquals("A",strDeque.removeLast());
   }
+  
+  /*
+   * TODO
+   * 
+Test 6: Calls to addFirst(), addLast(), removeFirst(), and removeLast()
+  *     5 random calls (p1 = 0.4, p2 = 0.4, p3 = 0.1, p4 = 0.1)
+  *    50 random calls (p1 = 0.4, p2 = 0.4, p3 = 0.1, p4 = 0.1)
+  *   500 random calls (p1 = 0.4, p2 = 0.4, p3 = 0.1, p4 = 0.1)
+  *  1000 random calls (p1 = 0.4, p2 = 0.4, p3 = 0.1, p4 = 0.1)
+  *     5 random calls (p1 = 0.1, p2 = 0.1, p3 = 0.4, p4 = 0.4)
+  *    50 random calls (p1 = 0.1, p2 = 0.1, p3 = 0.4, p4 = 0.4)
+    Failed on removeFirst() operation 9
+    student   value = 2
+    reference value = 8
+  *   500 random calls (p1 = 0.1, p2 = 0.1, p3 = 0.4, p4 = 0.4)
+    Failed on removeFirst() operation 28
+    student   value = 23
+    reference value = 26
+  *  1000 random calls (p1 = 0.1, p2 = 0.1, p3 = 0.4, p4 = 0.4)
+    Failed on removeLast() operation 11
+    student   value = 0
+    reference value = 10
+==> FAILED
+
+Test 10: Check iterator() after intermixed calls to addFirst(), addLast(), removeFirst(), and removeLast()
+      -  student   solution has 2 non-null entries
+      -  reference solution has 1 non-null entries
+      -  1 extra entry in student solution: 12
+      iterator failed after applying operation 13
+==> FAILED
+
+ 
+Test 4a-4e: Measuring total memory usage after inserting N items 
+ and then deleting all but one item.
+
+                 N        bytes
+----------------------------------------------------------
+=> FAILED        8          424   (1.1x)
+=> FAILED       64         3112   (8.1x)
+=> FAILED      256        12328  (32.1x)
+=> FAILED     1024        49192 (128.1x)
+=> FAILED     4096       196648 (512.1x)
+==> 0/5 tests passed
+
+Memory of Deque after adding N = 2^i items:
+ * Student memory = 71498.91  (R^2 = 0.000)
+ * 
+
+Test 6: Checking for loitering by adding 100 strings and deleting them:
+ * loitering detected on 99 of 100 removeFirst() operations
+ * loitering detected on 99 of 100 removeLast() operations
+==> FAILED
+ 
+   */
   
 }
