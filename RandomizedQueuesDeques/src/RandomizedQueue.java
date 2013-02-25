@@ -163,7 +163,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     return a.length;
   }
 
-  public String toStr(){
+  private String toStr(){
     StringBuilder sb = new StringBuilder();
     for(Item i : a){
       if(i!=null){

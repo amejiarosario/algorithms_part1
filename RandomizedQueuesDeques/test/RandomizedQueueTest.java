@@ -306,31 +306,5 @@ public class RandomizedQueueTest {
       //assertEquals(expected, t[i], 2);
     }
   }
-  
-  // TODO add randomized tests
-/*
-
-*  enqueue strings A to C and call dequeue() until A is dequeued; repeat 1500 times
-
-                           1    2    3 
-     observed frequency  778  722    0  |  1500
-     expected frequency  500  500  500  |  1500
-
-
-*  enqueue strings A to E and call dequeue() until A is dequeued; repeat 2500 times
-
-                         1    2    3    4    5 
-   observed frequency  615  635  628  290  332  |  2500
-   expected frequency  500  500  500  500  500  |  2500
-
-*  enqueue strings A to J and call dequeue() until G is dequeued; repeat 5000 times
-
-                         1    2    3    4    5    6    7    8    9   10 
-   observed frequency  642  656  630  589  650  624  307  305  280  317  |  5000
-   expected frequency  500  500  500  500  500  500  500  500  500  500  |  5000
-
-   chi-squared = 528.72 (p-value = 0.0000, reject if p-value <= 0.001)
-
-*/
 
 }
