@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -75,13 +76,13 @@ public class RandomizedQueueTest {
   }
 
   @Test(timeout=50)
-  public void testEnqueueSize() {
+  public void testIteratorEnqueueSize() {
     String ele[] = new String[]{"A","B","C","D", "E"};
 
     for(String e: ele)
       strQueue.enqueue(e);
 
-    int count=-1;
+    int count=0;
     Iterator<String> it = strQueue.iterator();
     while(it.hasNext()){
       it.next();
@@ -203,7 +204,7 @@ public class RandomizedQueueTest {
     Iterator<String> it = strQueue.iterator();
     Iterator<String> it2 = strQueue.iterator();
 
-    for(int i=0; i< ele.length+1; i++){
+    for(int i=0; i< ele.length; i++){
       assertEquals(it.hasNext(), true);
       assertEquals(it2.hasNext(), true);
       it.next();
@@ -211,7 +212,7 @@ public class RandomizedQueueTest {
     assertEquals(it.hasNext(), false);
     assertEquals(it2.hasNext(), true);
 
-    for(int i=0; i< ele.length+1; i++){
+    for(int i=0; i< ele.length; i++){
       assertEquals(it2.hasNext(), true);
       it2.next();
     }
@@ -248,18 +249,64 @@ public class RandomizedQueueTest {
         assertEquals(q.isEmpty(), true);
       }
   }
-
-  @Test(timeout=200)
-  public void testEnqueueDequeue() {
+  
+  @Test(timeout=1000)
+  public void testIteratorUniformRandomDequeu(){
     RandomizedQueue<Integer> q = new RandomizedQueue<Integer>();
-
-      for(int j=0; j<10; j++){
-          q.enqueue(j);
-          q.dequeue();
-      }
-      assertEquals(q.isEmpty(), true);
+    
+    int N = 125;
+    
+    for(int h=0; h<N; h++)
+      q.enqueue(h);
+    
+    Boolean b[] = new Boolean[N];
+    for(int h=0; h<N; h++)
+      b[h] = false;
+    
+    Iterator<Integer> it = q.iterator();
+    while(it.hasNext()){
+      int v = q.dequeue();
+      assertEquals(false, b[v]); // not repeated
+      b[v] = true;
+    }
+    
+    for(int h=0; h<N; h++)
+      assertEquals(true, b[h]);
   }
 
+  @Test(timeout=1000)
+  public void testFrecuency(){
+    RandomizedQueue<Integer> q;
+    
+    int N = 3;
+    int T = 1000;
+    int t[] = new int[N];
+    
+    
+    
+    for(int j=0; j<T; j++){
+      q = new RandomizedQueue<Integer>();
+      for(int i=0; i<N; i++)
+        q.enqueue(i);
+      
+//      System.out.println(q.toStr());
+      
+      int v=-1;
+      for(int i=0; v != 0; i++){
+        v = q.dequeue();
+        t[v]++;
+      }
+    }
+    
+//    System.out.println();
+    
+    int expected = (int)(T/N);
+    for(int i=0; i<N; i++){
+      System.out.println(i+" = "+t[i]);
+      //assertEquals(expected, t[i], 2);
+    }
+  }
+  
   // TODO add randomized tests
 /*
 

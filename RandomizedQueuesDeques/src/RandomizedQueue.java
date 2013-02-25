@@ -42,7 +42,16 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     a = tmp;
     head=0;
     tail=N;
-    StdRandom.shuffle(a,head,tail-1);
+    //System.out.println("before="+this.toStr());
+    //StdRandom.shuffle(a,head,tail-1);
+    //System.out.println("after="+this.toStr());
+  }
+  
+  private void exchange(int x, int y){
+    if(x==y) return;
+    Item t = a[x];
+    a[x] = a[y];
+    a[y] = t;
   }
 
   public void enqueue(Item item)     // add the item
@@ -52,9 +61,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
 //    System.out.println("\t(enqueue="+item+") head="+head+"; "+"tail="+tail+"; N="+N+"; capacity="+capacity());
 
-    a[tail++] = item;
+    a[tail] = item;
+    
+    if(N>0){
+      int i = StdRandom.uniform(N+1);
+      exchange(tail, (head+i) % a.length);
+    }
+    
+    tail++;
     tail %= a.length;
     N++;
+    
+
 
     if(N == a.length)
       resize(2*a.length);
@@ -101,18 +119,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private int current;
     private Item[] array;
 
+    @SuppressWarnings("unchecked")
     public TheIterator(){
       current = 0;
-      fit();
-    }
-
-    private void fit(){
-      @SuppressWarnings("unchecked")
+      
       array = (Item[]) new Object[N];
-
       for(int i=0; i<N; i++)
         array[i] = a[(head+i) % a.length];
-
+      
       StdRandom.shuffle(array);
     }
 
@@ -129,11 +143,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      */
     @Override
     public Item next() {
-      if(current == N)
-        throw new NoSuchElementException();
-
       if(hasNext())
         return array[current++];
+      else
+        throw new NoSuchElementException();
+        
     }
 
     /* (non-Javadoc)
@@ -149,7 +163,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     return a.length;
   }
 
-  private String toStr(){
+  public String toStr(){
     StringBuilder sb = new StringBuilder();
     for(Item i : a){
       if(i!=null){
