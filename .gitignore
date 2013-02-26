@@ -2,7 +2,7 @@
 *.jar
 *.war
 *.ear
-
+*.zip
 bin/
 
 .*
