@@ -12,23 +12,44 @@ import org.junit.Test;
  * 
  */
 public class PointTest {
+  private Point p;
 
   /**
    * @throws java.lang.Exception
    */
   @Before
   public void setUp() throws Exception {
+    p = new Point(1,1);
   }
 
-  @Test
-  public void test() {
-    fail("Not yet implemented");
-  }
 
   // Slope. To begin, implement the slopeTo() method. Be sure to consider a
   // variety of corner cases, including horizontal, vertical, and degenerate
   // line segments.
 
+  @Test
+  public void testRegularSlope() {
+    Point r = new Point(2,2);
+    double slope = p.slopeTo(r);
+    assertEquals(1, slope,0.1);
+  }
+  
+  @Test
+  public void testVerticalSlope() {
+    Point r = new Point(1,2);
+    double slope = p.slopeTo(r);
+    assertEquals(Double.POSITIVE_INFINITY, slope,0.1);
+    assertNotSame(Double.NEGATIVE_INFINITY, slope);
+  }
+  
+  @Test
+  public void testHorizontalSlope() {
+    Point r = new Point(2,1);
+    double slope = p.slopeTo(r);
+    assertEquals(0, slope,0.1);
+  }
+  
+  
   // same point appear, for the slopeTo()
 
   // do not print permutations of points on a line segment (e.g., if you output
