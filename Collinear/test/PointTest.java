@@ -24,8 +24,10 @@ public class PointTest {
   public void test() {
     fail("Not yet implemented");
   }
-  
-  //Slope. To begin, implement the slopeTo() method. Be sure to consider a variety of corner cases, including horizontal, vertical, and degenerate line segments.
+
+  // Slope. To begin, implement the slopeTo() method. Be sure to consider a
+  // variety of corner cases, including horizontal, vertical, and degenerate
+  // line segments.
 
   // same point appear, for the slopeTo()
 
