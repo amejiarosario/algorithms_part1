@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -104,6 +106,70 @@ public class PointTest {
     Point r = new Point(0,0);
     int c = p.compareTo(r);
     assertEquals(1, c);
+  }
+  
+  @Test
+  public void testAllCompareTo(){
+    Point r = new Point(32000,10000);
+    Point h = new Point(18000,10000);
+    int c;
+    c= h.compareTo(h);
+    assertEquals(0, c);
+    c= h.compareTo(r);
+    assertEquals(-1, c);
+    c= r.compareTo(h);
+    assertEquals(1, c);
+  }
+  
+  @Test
+  public void testSorting2(){
+    ArrayList<Point> p = new ArrayList<Point>();
+    p.add(new Point(32000,10000));
+    p.add(new Point(18000,10000));
+    
+    Collections.sort(p);
+    
+    ArrayList<Point> expected = new ArrayList<Point>();
+    expected.add(new Point(18000,10000));
+    expected.add(new Point(32000,10000));
+    
+    assertEquals(expected.toString(),p.toString());
+  }
+  
+  @Test
+  public void testSorting3(){
+    ArrayList<Point> p = new ArrayList<Point>();
+    p.add(new Point(32000,10000));
+    p.add(new Point(19000,10000));
+    p.add(new Point(18000,10000));
+    
+    Collections.sort(p);
+    
+    ArrayList<Point> expected = new ArrayList<Point>();
+    expected.add(new Point(18000,10000));
+    expected.add(new Point(19000,10000));
+    expected.add(new Point(32000,10000));
+    
+    assertEquals(expected.toString(),p.toString());
+  }
+  
+  @Test
+  public void testSorting(){
+    ArrayList<Point> p = new ArrayList<Point>();
+    p.add(new Point(19000,10000));
+    p.add(new Point(18000,10000));
+    p.add(new Point(32000,10000));
+    p.add(new Point(21000,10000));
+    
+    Collections.sort(p);
+    
+    ArrayList<Point> expected = new ArrayList<Point>();
+    expected.add(new Point(18000,10000));
+    expected.add(new Point(19000,10000));
+    expected.add(new Point(21000,10000));
+    expected.add(new Point(32000,10000));
+    
+    assertEquals(expected.toString(),p.toString());
   }
   
   
