@@ -49,8 +49,64 @@ public class PointTest {
     assertEquals(0, slope,0.1);
   }
   
-  
   // same point appear, for the slopeTo()
+  @Test
+  public void testSamePointSlope() {
+    Point r = new Point(1,1);
+    double slope = p.slopeTo(r);
+    assertEquals(Double.NEGATIVE_INFINITY, slope,0.1);
+  }
+  
+  @Test
+  public void testSamePointCompareTo(){
+    Point r = new Point(1,1);
+    int c = p.compareTo(r);
+    assertEquals(0, c);
+  }
+  
+  @Test
+  public void testBiggerBothCompareTo(){
+    Point r = new Point(2,2);
+    int c = p.compareTo(r);
+    assertEquals(-1, c);
+  }
+  
+  @Test
+  public void testBiggerYCompareTo(){
+    Point r = new Point(1,2);
+    int c = p.compareTo(r);
+    assertEquals(-1, c);
+  }
+  
+  @Test
+  public void testBiggerXCompareTo(){
+    Point r = new Point(2,1);
+    int c = p.compareTo(r);
+    assertEquals(-1, c);
+  }
+  
+  @Test
+  public void testSmallerYCompareTo(){
+    Point r = new Point(1,0);
+    int c = p.compareTo(r);
+    assertEquals(1, c);
+  }
+  
+  @Test
+  public void testSmallerXCompareTo(){
+    Point r = new Point(0,1);
+    int c = p.compareTo(r);
+    assertEquals(1, c);
+  }
+  
+  @Test
+  public void testSmallerBothCompareTo(){
+    Point r = new Point(0,0);
+    int c = p.compareTo(r);
+    assertEquals(1, c);
+  }
+  
+  
 
   // do not print permutations of points on a line segment (e.g., if you output
   // p→q→r→s, do not also output either s→r→q→p or p→r→q→s)
