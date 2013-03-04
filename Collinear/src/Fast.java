@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * 
@@ -29,45 +28,58 @@ import java.util.Arrays;
  * 
  */
 public class Fast {
-  private ArrayList<ArrayList<Point>> results;
+  private Set<Set<Point>> results;
+  private Point[] points;
   
   public Fast(Point[] points){
+    this.points = points;
     collinear(points);
   }
   
   private void collinear(Point[] points){
-    results = new ArrayList<ArrayList<Point>>();
+    results = new HashSet<Set<Point>>();
+    
+    // iterate through all points N
     for(Point p: points){
       Arrays.sort(points, p.SLOPE_ORDER);
       
-      ArrayList<Point> collinear = new ArrayList<Point>();
-      Double slope = null;
-      Point prev = null;
+      Set<Point> collinear = new HashSet<Point>();
+      Double prevSlope = null;
+      Point prevPoint = p;
+      boolean foundEquals = false;
       
       collinear.add(p);
       
       for(Point x: points){
         if(x == p) continue;
         
-        double newslope = p.slopeTo(x);
-        if(slope != null && newslope != slope)
+        double slope = p.slopeTo(x);
+        if(foundEquals && slope != prevSlope)
           break;
         else {
-          slope = newslope;
-          prev = x;
-          collinear.add(x);
+          if(prevSlope!=null && slope == prevSlope){
+            collinear.add(x);
+            collinear.add(prevPoint);
+            foundEquals = true;
+          }
+          prevSlope = slope;
+          prevPoint = x;
         }
       }
-      if(collinear.size()>=4)
+      
+      if(collinear.size() >= 4){
         results.add(collinear);
+      }
     }
   }
   
   public String toString(){
     StringBuilder sb = new StringBuilder();
-    for(ArrayList<Point> alp : results){
+    for(Set<Point> alp : results){
       boolean first = true;
-      for(Point p : alp){
+      Point[] ps = alp.toArray(new Point[0]);
+      Arrays.sort(ps);
+      for(Point p : ps){
         if(!first)
           sb.append(" -> ");
         sb.append(p);
@@ -76,6 +88,30 @@ public class Fast {
       sb.append("\n");
     }
     return sb.toString();
+  }
+  
+  public void draw(){
+    // rescale coordinates and turn on animation mode
+    StdDraw.setXscale(0, 32768);
+    StdDraw.setYscale(0, 32768);
+    StdDraw.show(0);
+    
+    for(Point p: points){
+      p.draw();
+    }
+    // display to screen all at once
+    StdDraw.show(0);
+    
+    
+    // draw segments
+    for(Set<Point> alp : results){
+      Point[] ps = alp.toArray(new Point[0]);
+      Arrays.sort(ps);
+      for(int x=0; x<ps.length-1; x++){
+        ps[x].drawTo(ps[x+1]);
+      }
+    }
+    StdDraw.show(0);
   }
 
   /**
@@ -94,7 +130,7 @@ public class Fast {
     
     Fast f = new Fast(ps);
     System.out.println(f);
-
+    f.draw();
   }
 
 }

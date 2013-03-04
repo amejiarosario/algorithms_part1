@@ -94,6 +94,7 @@ public class Point implements Comparable<Point> {
   public void drawTo(Point that) {
     /* DO NOT MODIFY */
     StdDraw.line(this.x, this.y, that.x, that.y);
+//    System.out.printf("(%d,%d); (%d,%d) \n",this.x, this.y, that.x, that.y);
   }
 
   /**
