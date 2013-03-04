@@ -106,16 +106,16 @@ public class Fast {
     // display to screen all at once
     StdDraw.show(0);
     
-    Set<String> h = new HashSet<String>();
+//    Set<String> h = new HashSet<String>();
     
     // draw segments
     for(Set<Point> alp : results){
       Point[] ps = alp.toArray(new Point[0]);
       Arrays.sort(ps);
-      for(int x=0; x<ps.length-1; x++){
-        if(h.add(ps[x].toString()+ps[x+1].toString()))
-          ps[x].drawTo(ps[x+1]);
-      }
+//      for(int x=0; x<ps.length-1; x++){
+//        if(h.add(ps[x].toString()+ps[x+1].toString()))
+          ps[0].drawTo(ps[ps.length-1]);
+//      }
     }
     StdDraw.show(0);
   }
