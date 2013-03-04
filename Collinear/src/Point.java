@@ -61,12 +61,22 @@ public class Point implements Comparable<Point> {
    * @return
    */
   public double slopeTo(Point r) {
+    // same point
+    if((r.y == this.y) && (r.x == this.x) )
+      return Double.NEGATIVE_INFINITY;
+    
+    // vertical
+    if(r.x == this.x)
+      return Double.POSITIVE_INFINITY;
+    
+    // horizontal
+    if(r.y == this.y)
+      return 0;
+    
     double d = r.y - this.y;
     double n = r.x - this.x;
-    if(d == n && d == 0 )
-      return Double.NEGATIVE_INFINITY;
-    else
-      return d/n;
+    
+    return d/n;
   }
 
   // is this point lexicographically smaller than that one?
@@ -94,7 +104,7 @@ public class Point implements Comparable<Point> {
   public void drawTo(Point that) {
     /* DO NOT MODIFY */
     StdDraw.line(this.x, this.y, that.x, that.y);
-//    System.out.printf("(%d,%d); (%d,%d) \n",this.x, this.y, that.x, that.y);
+    System.out.printf("drawTo (%d,%d) -> (%d,%d) \n",this.x, this.y, that.x, that.y);
   }
 
   /**
@@ -106,6 +116,7 @@ public class Point implements Comparable<Point> {
   public void draw() {
     /* DO NOT MODIFY */
     StdDraw.point(x, y);
+    System.out.println("draw"+this);
   }
 
   // return string representation of this point

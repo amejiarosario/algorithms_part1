@@ -31,7 +31,11 @@ public class Fast {
   private Set<Set<Point>> results;
   private Point[] points;
   
-  public Fast(Point[] points){
+  public Fast(){
+    
+  }
+  
+  private Fast(Point[] points){
     this.points = points;
     collinear(points);
   }
@@ -73,7 +77,7 @@ public class Fast {
     }
   }
   
-  public String toString(){
+  private String toStr(){
     StringBuilder sb = new StringBuilder();
     for(Set<Point> alp : results){
       boolean first = true;
@@ -90,7 +94,7 @@ public class Fast {
     return sb.toString();
   }
   
-  public void draw(){
+  private void draw(){
     // rescale coordinates and turn on animation mode
     StdDraw.setXscale(0, 32768);
     StdDraw.setYscale(0, 32768);
@@ -102,13 +106,15 @@ public class Fast {
     // display to screen all at once
     StdDraw.show(0);
     
+    Set<String> h = new HashSet<String>();
     
     // draw segments
     for(Set<Point> alp : results){
       Point[] ps = alp.toArray(new Point[0]);
       Arrays.sort(ps);
       for(int x=0; x<ps.length-1; x++){
-        ps[x].drawTo(ps[x+1]);
+        if(h.add(ps[x].toString()+ps[x+1].toString()))
+          ps[x].drawTo(ps[x+1]);
       }
     }
     StdDraw.show(0);
@@ -129,7 +135,7 @@ public class Fast {
       ps[j++] = new Point(i[h+1],i[h+2]);
     
     Fast f = new Fast(ps);
-    System.out.println(f);
+    System.out.println(f.toStr());
     f.draw();
   }
 

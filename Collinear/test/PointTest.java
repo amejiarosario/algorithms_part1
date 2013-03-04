@@ -45,6 +45,16 @@ public class PointTest {
   }
   
   @Test
+  public void testSlopeToVertical(){
+    Point p = new Point(20, 494);
+    Point q = new Point(20, 425);
+    Double slope = p.slopeTo(q);
+    assertEquals(Double.POSITIVE_INFINITY, slope, 0.1);
+    assertNotSame(Double.NEGATIVE_INFINITY, slope);
+  }
+
+
+  @Test
   public void testHorizontalSlope() {
     Point r = new Point(2,1);
     double slope = p.slopeTo(r);

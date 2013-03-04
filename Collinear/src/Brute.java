@@ -17,14 +17,26 @@ import java.util.*;
  * 
  */
 public class Brute {
+  private ArrayList<ArrayList<Point>> results;
+  private Point[] points;
   
-  public ArrayList<ArrayList<Point>> collinear(Point[] points){
+  public Brute(){
+    
+  }
+  
+  private Brute(Point[] points){
+    this.points = points;
+    collinear(points);
+  }
+  
+  private void collinear(Point[] points){
+    results = new ArrayList<ArrayList<Point>>();
+
     int l = points.length;
+    if(l<4){
+      return;
+    }
     
-    if(l<4)
-      return null;
-    
-    ArrayList<ArrayList<Point>> res = new ArrayList<ArrayList<Point>>();
     
     Arrays.sort(points);
     
@@ -41,11 +53,53 @@ public class Brute {
               p.add(points[b]);
               p.add(points[c]);
               p.add(points[d]);
-              res.add(p);
+              results.add(p);
             }
           }
-    return res;
   }
+  
+  private String toStr(){
+    StringBuilder sb = new StringBuilder();
+    for(ArrayList<Point> alp : results){
+      boolean first = true;
+      for(Point p : alp){
+        if(!first)
+          sb.append(" -> ");
+        sb.append(p);
+        first = false;
+      }
+      sb.append("\n");
+    }
+    return sb.toString();
+  }
+  
+  private void draw(){
+    // rescale coordinates and turn on animation mode
+    StdDraw.setXscale(0, 32768);
+    StdDraw.setYscale(0, 32768);
+    StdDraw.show(0);
+    
+    for(Point p: points){
+      p.draw();
+    }
+    
+    // display to screen all at once
+    StdDraw.show(0);
+    
+    Set<String> h = new HashSet<String>();
+    
+    // draw segments
+    for(ArrayList<Point> alp : results){
+      Point[] ps = alp.toArray(new Point[0]);
+      Arrays.sort(ps);
+      for(int x=0; x<ps.length-1; x++){
+        if(h.add(ps[x].toString()+ps[x+1].toString()))
+          ps[x].drawTo(ps[x+1]);
+      }
+    }
+    StdDraw.show(0);
+  }
+  
 
   /**
    * @param args
@@ -61,20 +115,9 @@ public class Brute {
     for(int h=0; (h+2) < i.length; h+=2)
       ps[j++] = new Point(i[h+1],i[h+2]);
     
-    Brute p = new Brute();
-    ArrayList<ArrayList<Point>> r = p.collinear(ps);
-    
-    for(ArrayList<Point> al : r){
-      boolean first = true;
-      for(Point pt : al){
-        if(!first)
-          System.out.print(" -> ");
-        System.out.print(pt);
-        first=false;
-      }
-      System.out.println("");
-    }
-
+    Brute p = new Brute(ps);
+    System.out.println(p.toStr());
+    p.draw();
   }
 
 }
