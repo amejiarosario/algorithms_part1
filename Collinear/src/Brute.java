@@ -51,6 +51,29 @@ public class Brute {
    * @param args
    */
   public static void main(String[] args) {
+    if(args.length != 1)
+      throw new IllegalArgumentException("No file name.");
+    
+    int i[] = In.readInts(args[0]);
+    Point ps[] = new Point[i[0]];
+    
+    int j=0;
+    for(int h=0; (h+2) < i.length; h+=2)
+      ps[j++] = new Point(i[h+1],i[h+2]);
+    
+    Brute p = new Brute();
+    ArrayList<ArrayList<Point>> r = p.collinear(ps);
+    
+    for(ArrayList<Point> al : r){
+      boolean first = true;
+      for(Point pt : al){
+        if(!first)
+          System.out.print(" -> ");
+        System.out.print(pt);
+        first=false;
+      }
+      System.out.println("");
+    }
 
   }
 

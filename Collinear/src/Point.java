@@ -33,10 +33,17 @@ public class Point implements Comparable<Point> {
    * The SLOPE_ORDER comparator should compare points by the slopes they make
    * with the invoking point
    */
-  private static class BySlopeOrder implements Comparator<Point> {
+  private class BySlopeOrder implements Comparator<Point> {
     @Override
     public int compare(Point p, Point r) {
-      return 0;
+      double ps = Point.this.slopeTo(p);
+      double pr = Point.this.slopeTo(r);
+      if(ps > pr)
+        return 1;
+      else if(ps < pr)
+        return -1;
+      else
+        return 0;
     }
   }
 

@@ -173,6 +173,30 @@ public class PointTest {
   }
   
   
+  @Test
+  public void testBySlopeOrder(){
+    Point p22 = new Point(2,2);
+    Point p31 = new Point(3,1);
+    Point p42 = new Point(4,2);
+    Point p13 = new Point(1,3);
+    Point p11 = new Point(1,1);
+    
+    Point points[] = new Point[]{p22,p31,p42,p13,p11};
+    Arrays.sort(points, p.SLOPE_ORDER);
+    
+    assertEquals(new Point[]{p11,p31,p42,p22,p13}, points);
+  }
+  
+//  @Test void testBySlopeOrderVerticalDiagonalHorizontal(){
+//    Point p11 = new Point(1,1);
+//    Point p22 = new Point(2,2);
+//    Point p31 = new Point(3,1);
+//    Point p42 = new Point(4,2);
+//    Point p13 = new Point(1,3);
+//    
+//    Point points[] = new Point[]{p22,p31,p42,p13,p11};    
+//  }
+  
 
   // do not print permutations of points on a line segment (e.g., if you output
   // p→q→r→s, do not also output either s→r→q→p or p→r→q→s)

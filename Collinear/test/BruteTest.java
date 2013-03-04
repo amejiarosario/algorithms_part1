@@ -45,7 +45,8 @@ public class BruteTest {
   
   @Test
   public void testInput6() {
-    int N = 6, i=0;
+    int N = 6;
+    int i=0;
     Point[] ps = new Point[N];
     ps[i++] = new Point(19000,10000);
     ps[i++] = new Point(18000,10000);

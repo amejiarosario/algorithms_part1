@@ -1,4 +1,26 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
+ * 
+ * A faster, sorting-based solution. Remarkably, it is possible to solve the
+ * problem much faster than the brute-force solution described above. Given a
+ * point p, the following method determines whether p participates in a set of
+ * 4 or more collinear points.
+ * 
+ * Think of p as the origin. For each other point q, determine the slope it
+ * makes with p. Sort the points according to the slopes they makes with p.
+ * Check if any 3 (or more) adjacent points in the sorted order have equal
+ * slopes with respect to p. If so, these points, together with p, are
+ * collinear. Applying this method for each of the N points in turn yields an
+ * efficient algorithm to the problem. The algorithm solves the problem
+ * because points that have equal slopes with respect to p are collinear, and
+ * sorting brings such points together. The algorithm is fast because the
+ * bottleneck operation is sorting.
+ * 
+ * Write a program Fast.java that implements this algorithm. The order of
+ * growth of the running time of your program should be N2 log N in the worst
+ * case and it should use space proportional to N.
  * 
  */
 
@@ -7,32 +29,71 @@
  * 
  */
 public class Fast {
+  private ArrayList<ArrayList<Point>> results;
+  
+  public Fast(Point[] points){
+    collinear(points);
+  }
+  
+  private void collinear(Point[] points){
+    results = new ArrayList<ArrayList<Point>>();
+    for(Point p: points){
+      Arrays.sort(points, p.SLOPE_ORDER);
+      
+      ArrayList<Point> collinear = new ArrayList<Point>();
+      Double slope = null;
+      Point prev = null;
+      
+      collinear.add(p);
+      
+      for(Point x: points){
+        if(x == p) continue;
+        
+        double newslope = p.slopeTo(x);
+        if(slope != null && newslope != slope)
+          break;
+        else {
+          slope = newslope;
+          prev = x;
+          collinear.add(x);
+        }
+      }
+      if(collinear.size()>=4)
+        results.add(collinear);
+    }
+  }
+  
+  public String toString(){
+    StringBuilder sb = new StringBuilder();
+    for(ArrayList<Point> alp : results){
+      boolean first = true;
+      for(Point p : alp){
+        if(!first)
+          sb.append(" -> ");
+        sb.append(p);
+        first = false;
+      }
+      sb.append("\n");
+    }
+    return sb.toString();
+  }
 
   /**
-   * 
-   * A faster, sorting-based solution. Remarkably, it is possible to solve the
-   * problem much faster than the brute-force solution described above. Given a
-   * point p, the following method determines whether p participates in a set of
-   * 4 or more collinear points.
-   * 
-   * Think of p as the origin. For each other point q, determine the slope it
-   * makes with p. Sort the points according to the slopes they makes with p.
-   * Check if any 3 (or more) adjacent points in the sorted order have equal
-   * slopes with respect to p. If so, these points, together with p, are
-   * collinear. Applying this method for each of the N points in turn yields an
-   * efficient algorithm to the problem. The algorithm solves the problem
-   * because points that have equal slopes with respect to p are collinear, and
-   * sorting brings such points together. The algorithm is fast because the
-   * bottleneck operation is sorting.
-   * 
-   * Write a program Fast.java that implements this algorithm. The order of
-   * growth of the running time of your program should be N2 log N in the worst
-   * case and it should use space proportional to N.
-   * 
    * @param args
    */
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
+    if(args.length != 1)
+      throw new IllegalArgumentException("No file name.");
+    
+    int i[] = In.readInts(args[0]);
+    Point ps[] = new Point[i[0]];
+    
+    int j=0;
+    for(int h=0; (h+2) < i.length; h+=2)
+      ps[j++] = new Point(i[h+1],i[h+2]);
+    
+    Fast f = new Fast(ps);
+    System.out.println(f);
 
   }
 
