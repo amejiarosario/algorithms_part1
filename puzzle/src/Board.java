@@ -47,7 +47,7 @@ public class Board {
     }
     public boolean isGoal()                // is this board the goal board?
     {
-      return false;
+      return this.hamming() == 0;
     }
     public Board twin()                    // a board obtained by exchanging two adjacent blocks in the same row
     {

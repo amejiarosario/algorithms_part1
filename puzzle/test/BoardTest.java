@@ -113,8 +113,24 @@ public class BoardTest {
    * Test method for {@link Board#isGoal()}.
    */
   @Test
-  public void testIsGoal() {
-    fail("Not yet implemented");
+  public void testIsGoal2() {
+    assertEquals(false,b2.isGoal());
+  }
+  
+  /**
+   * Test method for {@link Board#isGoal()}.
+   */
+  @Test
+  public void testIsGoal3() {
+    assertEquals(false,b3.isGoal());
+  }
+  
+  /**
+   * Test method for {@link Board#isGoal()}.
+   */
+  @Test
+  public void testIsGoal4() {
+    assertEquals(true,b4.isGoal());
   }
 
   /**
