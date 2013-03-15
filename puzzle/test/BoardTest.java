@@ -136,17 +136,34 @@ public class BoardTest {
   /**
    * Test method for {@link Board#twin()}.
    */
-  @Test
-  public void testTwin() {
-    fail("Not yet implemented");
-  }
+//  @Test
+//  public void testTwin() {
+//    System.out.println(b3.toString());
+//    System.out.println(b3.twin().toString());
+//  }
 
   /**
    * Test method for {@link Board#equals(java.lang.Object)}.
    */
   @Test
-  public void testEqualsObject() {
-    fail("Not yet implemented");
+  public void testEqualsObjectSame() {
+    assertEquals(true, b3.equals(b3));
+  }
+  
+  /**
+   * Test method for {@link Board#equals(java.lang.Object)}.
+   */
+  @Test
+  public void testEqualsObjectDifferent() {
+    assertEquals(false, b3.equals(b3.twin()));
+  }
+  
+  /**
+   * Test method for {@link Board#equals(java.lang.Object)}.
+   */
+  @Test
+  public void testEqualsObjectDifferentLength() {
+    assertEquals(false, b3.equals(b2));
   }
 
   /**
