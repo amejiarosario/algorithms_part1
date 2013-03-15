@@ -14,10 +14,12 @@ public class Board {
     {
       this.b = blocks;
     }
+    
     public int dimension()                 // board dimension N
     {
       return b.length;
     }
+    
     public int hamming()                   // number of blocks out of place
     {
       int h=0, c=1;
@@ -27,9 +29,21 @@ public class Board {
             h++;
       return h-1;
     }
+    
     public int manhattan()                 // sum of Manhattan distances between blocks and goal
     {
-      return -1;
+      int h=0, c=1;
+      for(int x=0; x<b.length; x++)
+        for(int y=0; y<b.length; y++)
+          if(c++ != b[x][y]){
+            for(int p=0; p<b.length; p++)
+              for(int r=0; r<b.length; r++)
+                if((c-1) == b[p][r]){
+                  h += Math.abs(x-p) + Math.abs(y-r);
+                }
+            if(c == b.length*b.length) break;
+          }
+      return h;
     }
     public boolean isGoal()                // is this board the goal board?
     {

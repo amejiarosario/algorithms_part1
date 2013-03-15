@@ -77,7 +77,15 @@ public class BoardTest {
    */
   @Test
   public void testManhattan() {
-    fail("Not yet implemented");
+    assertEquals(10,b3.manhattan());
+  }
+  
+  /**
+   * Test method for {@link Board#manhattan()}.
+   */
+  @Test
+  public void testManhattan2() {
+    assertEquals(1,b2.manhattan());
   }
 
   /**
