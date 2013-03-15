@@ -12,13 +12,19 @@ import org.junit.Test;
  *
  */
 public class BoardTest {
-  private Board b2, b3;
+  private Board b2, b3, b4;
   private final int[][] a2 = {{1,0},{3,2}};
   private final int[][] a3 = {
       {8,1,3},
       {4,0,2},
       {7,6,5}
   };
+  private final int[][] a4 = {
+      {1,2,3,4},
+      {5,6,7,8},
+      {9,10,11,12},
+      {13,14,15,0}
+ };
 
   /**
    * @throws java.lang.Exception
@@ -27,6 +33,7 @@ public class BoardTest {
   public void setUp() throws Exception {
     b3 = new Board(a3);
     b2 = new Board(a2);
+    b4 = new Board(a4);
   }
   
   /**
@@ -46,15 +53,13 @@ public class BoardTest {
     assertEquals(3,b3.dimension());
   }
   
-//  /**
-//   * Test method for {@link Board#hamming()}.
-//   */
-//  @Test
-//  public void testHamming() {
-//    int[][] a = {{8,1,3},{4,0,2},{7,6,5}};
-//    Board b = new Board(a);
-//    assertEquals(5, b.hamming());
-//  }
+  /**
+   * Test method for {@link Board#dimension()}.
+   */
+  @Test
+  public void testDimension4() {
+    assertEquals(4,b4.dimension());
+  }
   
   /**
    * Test method for {@link Board#hamming()}.
@@ -71,12 +76,20 @@ public class BoardTest {
   public void testHamming2() {
     assertEquals(1, b2.hamming());
   }
+  
+  /**
+   * Test method for {@link Board#hamming()}.
+   */
+  @Test
+  public void testHamming4() {
+    assertEquals(0, b4.hamming());
+  }
 
   /**
    * Test method for {@link Board#manhattan()}.
    */
   @Test
-  public void testManhattan() {
+  public void testManhattan3() {
     assertEquals(10,b3.manhattan());
   }
   
@@ -86,6 +99,14 @@ public class BoardTest {
   @Test
   public void testManhattan2() {
     assertEquals(1,b2.manhattan());
+  }
+  
+  /**
+   * Test method for {@link Board#manhattan()}.
+   */
+  @Test
+  public void testManhattan4() {
+    assertEquals(0,b4.manhattan());
   }
 
   /**
