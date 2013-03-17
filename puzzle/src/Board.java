@@ -120,12 +120,8 @@ public class Board {
   }
   
   private class Neighbors implements Iterable<Board>{
-    /* (non-Javadoc)
-     * @see java.lang.Iterable#iterator()
-     */
     @Override
     public Iterator<Board> iterator() {
-      // TODO Auto-generated method stub
       return new NeighborIterator();
     }
   }
@@ -161,7 +157,7 @@ public class Board {
               exch(newarr,x,y+1,x,y);
               neighbors.add(new Board(newarr));
             }
-            break;
+            return;
           }
     }
     

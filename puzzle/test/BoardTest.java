@@ -209,7 +209,7 @@ public class BoardTest {
       } else if (b.toString().equals(n4.toString())){
         bool[3] = true;        
       }
-      System.out.println(b);
+//      System.out.println(b);
     }
     for(boolean u: bool)
     {
@@ -238,11 +238,26 @@ public class BoardTest {
       } else if (b.toString().equals(n2.toString())){
         bool[1] = true;
       }
-      System.out.println(b);
+//      System.out.println(b);
     }
     for(boolean u: bool)
     {
       assertTrue(u);
     }
+  }
+  
+  @Test(timeout=50)
+  public void testSolver() {
+    int[][] a = new int[][]{
+        {0,1,3},
+        {4,2,5},
+        {7,8,6},
+    };
+    Solver sol = new Solver(new Board(a));
+    assertEquals(4,sol.moves());
+//    for(Board b: sol.solution()){
+//      System.out.println(b);
+//    }
+//    System.out.println();
   }
 }
