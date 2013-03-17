@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +15,10 @@ import org.junit.Test;
  */
 public class BoardTest {
   private Board b2, b3, b4;
-  private final int[][] a2 = {{1,0},{3,2}};
+  private final int[][] a2 = {
+      {1,0},
+      {3,2}
+  };
   private final int[][] a3 = {
       {8,1,3},
       {4,0,2},
@@ -170,16 +175,74 @@ public class BoardTest {
    * Test method for {@link Board#neighbors()}.
    */
   @Test
-  public void testNeighbors() {
-    fail("Not yet implemented");
+  public void testNeighbors3() {
+    boolean[] bool = new boolean[4];
+    
+    Board n1 = new Board(new int[][]{
+        {8,0,3},
+        {4,1,2},
+        {7,6,5}
+    });
+    Board n2 = new Board(new int[][]{
+        {8,1,3},
+        {4,2,0},
+        {7,6,5}
+    });
+    Board n3 = new Board(new int[][]{
+        {8,1,3},
+        {4,6,2},
+        {7,0,5}
+    });
+    Board n4 = new Board(new int[][]{
+        {8,1,3},
+        {0,4,2},
+        {7,6,5}
+    });
+//    Iterator<Board> it = b3.neighbors().iterator();
+    for(Board b: b3.neighbors()){
+      if(b.toString().equals(n1.toString())){
+        bool[0] = true;
+      } else if (b.toString().equals(n2.toString())){
+        bool[1] = true;
+      } else if (b.toString().equals(n3.toString())){
+        bool[2] = true;
+      } else if (b.toString().equals(n4.toString())){
+        bool[3] = true;        
+      }
+      System.out.println(b);
+    }
+    for(boolean u: bool)
+    {
+      assertTrue(u);
+    }
   }
-
+  
   /**
-   * Test method for {@link Board#toString()}.
+   * Test method for {@link Board#neighbors()}.
    */
   @Test
-  public void testToString() {
-    fail("Not yet implemented");
+  public void testNeighbors2() {
+    boolean[] bool = new boolean[2];
+    
+    Board n1 = new Board(new int[][]{
+        {0,1},
+        {3,2}
+    });
+    Board n2 = new Board(new int[][]{
+        {1,2},
+        {3,0}
+    });
+    for(Board b: b2.neighbors()){
+      if(b.toString().equals(n1.toString())){
+        bool[0] = true;
+      } else if (b.toString().equals(n2.toString())){
+        bool[1] = true;
+      }
+      System.out.println(b);
+    }
+    for(boolean u: bool)
+    {
+      assertTrue(u);
+    }
   }
-
 }
