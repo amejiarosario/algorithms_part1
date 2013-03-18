@@ -26,6 +26,9 @@ public class Solver {
     public Board board(){
       return this.board;
     }
+    public int moves(){
+      return this.moves;
+    }
     @Override
     public int compareTo(SearchNode sn) {
       if(this.priority() > sn.priority())
@@ -58,14 +61,17 @@ public class Solver {
 //    System.out.println(sn);
 
     while (true) {
-      Board board = pq.delMin().board;
+      SearchNode searchNode = pq.delMin();
+      Board board = searchNode.board();
       solution.add(board);
 //      System.out.println("--vvv--");
 //      System.out.println(board);
 //      System.out.println("--^^^--");
       
-      if(board.hamming() == 0)
+      if(board.hamming() == 0){
+        moves = searchNode.moves();
         break;
+      }
       for (Board b : board.neighbors()) {
         sn = new SearchNode(b, moves);
         pq.insert(sn);
