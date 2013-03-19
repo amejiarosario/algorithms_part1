@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Stack;
 
 /**
  * 
@@ -10,72 +11,84 @@ import java.util.Comparator;
  * 
  */
 public class Solver {
-  ArrayList<Board> solution;
+  Stack<Board> gameTree;
   private int moves;
-  
+
   private class SearchNode implements Comparable<SearchNode> {
     private Board board;
     private int moves;
-    public SearchNode(Board board, int moves){
+    private SearchNode parent;
+
+    public SearchNode(Board board, int moves, SearchNode parent) {
       this.board = board;
       this.moves = moves;
+      this.parent = parent;
     }
-    public int priority(){
-      return board.manhattan()+moves;
+
+    public int priority() {
+      return board.manhattan()*2 + moves;
     }
-    public Board board(){
+
+    public Board board() {
       return this.board;
     }
-    public int moves(){
+
+    public int moves() {
       return this.moves;
     }
+
+    public SearchNode parent() {
+      return this.parent;
+    }
+
     @Override
     public int compareTo(SearchNode sn) {
-      if(this.priority() > sn.priority())
+      if (this.priority() > sn.priority())
         return 1;
       else if (this.priority() < sn.priority())
         return -1;
       else
         return 0;
     }
-    public String toString(){
+
+    public String toString() {
       StringBuilder sb = new StringBuilder();
-      sb.append("Move: "+ this.moves);
-      sb.append("\n\tpriority = "+ this.priority());
-      sb.append("\n\tmanhattan = "+ this.board.manhattan());
-      sb.append("\n\thamming = "+ this.board.hamming());
-      sb.append("\n\t"+ this.board.toString());
+      sb.append("Move: " + this.moves);
+      sb.append("\npriority = " + this.priority());
+      sb.append("\nmanhattan = " + this.board.manhattan());
+      sb.append("\nhamming = " + this.board.hamming());
+      sb.append("\n" + this.board.toString());
       return sb.toString();
     }
   }
 
   // find a solution to the initial board (using the A* algorithm)
   public Solver(Board initial) {
-    solution = new ArrayList<Board>();
     MinPQ<SearchNode> pq = new MinPQ<SearchNode>();
+    gameTree = new Stack<Board>();
     moves = 0;
     SearchNode sn;
-    
-    sn = new SearchNode(initial, moves++);
+
+    sn = new SearchNode(initial, moves++, null);
     pq.insert(sn);
-//    System.out.println(sn);
+    // System.out.println(sn);
 
     while (true) {
       SearchNode searchNode = pq.delMin();
-      Board board = searchNode.board();
-      solution.add(board);
+      gameTree.add(searchNode.board());
 //      System.out.println("--vvv--");
-//      System.out.println(board);
+//      System.out.println(searchNode);
 //      System.out.println("--^^^--");
-      
-      if(board.hamming() == 0){
+
+      if (searchNode.board().hamming() == 0) {
         moves = searchNode.moves();
         break;
       }
-      for (Board b : board.neighbors()) {
-        sn = new SearchNode(b, moves);
-        pq.insert(sn);
-//        System.out.println(sn);     
+      for (Board b : searchNode.board().neighbors()) {
+        if(searchNode.parent() == null || !b.equals(searchNode.parent().board())){
+          sn = new SearchNode(b, moves, searchNode);
+          pq.insert(sn);
+        }
       }
       moves++;
     }
@@ -94,7 +107,7 @@ public class Solver {
 
   // sequence of boards in a shortest solution; null if no solution
   public Iterable<Board> solution() {
-    return solution;
+    return gameTree;
   }
 
   // solve a slider puzzle (given below)
@@ -121,4 +134,3 @@ public class Solver {
     }
   }
 }
-

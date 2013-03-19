@@ -222,241 +222,11 @@ public class BoardTest {
     // System.out.println();
   }
 
-  @Test(timeout = 1000)
-  public void testPuzzle00() {
-    assertEquals(0, solver("puzzle00.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle1() {
-    assertEquals(1, solver("puzzle01.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle2() {
-    assertEquals(2, solver("puzzle02.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle3() {
-    assertEquals(3, solver("puzzle03.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle4() {
-    assertEquals(4, solver("puzzle04.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle5() {
-    assertEquals(5, solver("puzzle05.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle6() {
-    assertEquals(6, solver("puzzle06.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle7() {
-    assertEquals(7, solver("puzzle07.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle8() {
-    assertEquals(8, solver("puzzle08.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle9() {
-    assertEquals(9, solver("puzzle09.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle10() {
-    assertEquals(10, solver("puzzle10.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle11() {
-    assertEquals(11, solver("puzzle11.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle12() {
-    assertEquals(12, solver("puzzle12.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle13() {
-    assertEquals(13, solver("puzzle13.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle14() {
-    assertEquals(14, solver("puzzle14.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle15() {
-    assertEquals(15, solver("puzzle15.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle16() {
-    assertEquals(16, solver("puzzle16.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle17() {
-    assertEquals(17, solver("puzzle17.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle18() {
-    assertEquals(18, solver("puzzle18.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle19() {
-    assertEquals(19, solver("puzzle19.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle20() {
-    assertEquals(20, solver("puzzle20.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle21() {
-    assertEquals(21, solver("puzzle21.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle22() {
-    assertEquals(22, solver("puzzle22.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle23() {
-    assertEquals(23, solver("puzzle23.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle24() {
-    assertEquals(24, solver("puzzle24.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle25() {
-    assertEquals(25, solver("puzzle25.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle26() {
-    assertEquals(26, solver("puzzle26.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle27() {
-    assertEquals(27, solver("puzzle27.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle28() {
-    assertEquals(28, solver("puzzle28.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle29() {
-    assertEquals(29, solver("puzzle29.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle30() {
-    assertEquals(30, solver("puzzle30.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle31() {
-    assertEquals(31, solver("puzzle31.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle32() {
-    assertEquals(32, solver("puzzle32.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle33() {
-    assertEquals(33, solver("puzzle33.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle34() {
-    assertEquals(34, solver("puzzle34.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle35() {
-    assertEquals(35, solver("puzzle35.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle36() {
-    assertEquals(36, solver("puzzle36.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle37() {
-    assertEquals(37, solver("puzzle37.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle38() {
-    assertEquals(38, solver("puzzle38.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle39() {
-    assertEquals(39, solver("puzzle39.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle40() {
-    assertEquals(40, solver("puzzle40.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle41() {
-    assertEquals(41, solver("puzzle41.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle42() {
-    assertEquals(42, solver("puzzle42.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle43() {
-    assertEquals(43, solver("puzzle43.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle44() {
-    assertEquals(44, solver("puzzle44.txt"));
-  }
-
-  @Test(timeout = 1000)
-  public void testPuzzle45() {
-    assertEquals(45, solver("puzzle45.txt"));
-  }
-
   /**
    * @param string
    * @return
    */
-  private int solver(String filename) {
+  private Solver solver(String filename) {
     String path = "/Users/adrian/Dropbox/algorithms_part1/programs/puzzle/test/8puzzle/";
     In in = new In(path + filename);
     int N = in.readInt();
@@ -469,6 +239,251 @@ public class BoardTest {
     // solve the slider puzzle
     Board initial = new Board(tiles);
     Solver solver = new Solver(initial);
-    return solver.moves();
+    return solver;
   }
+
+  @Test(timeout = 300)
+  public void testPuzzleunsolvable() {
+    assertEquals(false, solver("puzzle3x3-unsolvable.txt").isSolvable());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle1() {
+    Solver sol = solver("puzzle01.txt");
+    assertEquals(1, sol.moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle2() {
+    assertEquals(2, solver("puzzle02.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle3() {
+    assertEquals(3, solver("puzzle03.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle4() {
+    assertEquals(4, solver("puzzle04.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle5() {
+    assertEquals(5, solver("puzzle05.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle6() {
+    assertEquals(6, solver("puzzle06.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle7() {
+    Solver sol = solver("puzzle07.txt");
+    System.out.println(sol.solution());
+    assertEquals(7, sol.moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle8() {
+    assertEquals(8, solver("puzzle08.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle9() {
+    assertEquals(9, solver("puzzle09.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle10() {
+    assertEquals(10, solver("puzzle10.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle11() {
+    assertEquals(11, solver("puzzle11.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle12() {
+    assertEquals(12, solver("puzzle12.txt").moves());
+  }
+
+  @Test(timeout = 300)
+  public void testPuzzle13() {
+    assertEquals(13, solver("puzzle13.txt").moves());
+  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle14() {
+//    assertEquals(14, solver("puzzle14.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle15() {
+//    assertEquals(15, solver("puzzle15.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle16() {
+//    assertEquals(16, solver("puzzle16.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle17() {
+//    assertEquals(17, solver("puzzle17.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle18() {
+//    assertEquals(18, solver("puzzle18.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle19() {
+//    assertEquals(19, solver("puzzle19.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle20() {
+//    assertEquals(20, solver("puzzle20.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle21() {
+//    assertEquals(21, solver("puzzle21.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle22() {
+//    assertEquals(22, solver("puzzle22.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle23() {
+//    assertEquals(23, solver("puzzle23.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle24() {
+//    assertEquals(24, solver("puzzle24.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle25() {
+//    assertEquals(25, solver("puzzle25.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle26() {
+//    assertEquals(26, solver("puzzle26.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle27() {
+//    assertEquals(27, solver("puzzle27.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle28() {
+//    assertEquals(28, solver("puzzle28.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle29() {
+//    assertEquals(29, solver("puzzle29.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle30() {
+//    assertEquals(30, solver("puzzle30.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle31() {
+//    assertEquals(31, solver("puzzle31.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle32() {
+//    assertEquals(32, solver("puzzle32.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle33() {
+//    assertEquals(33, solver("puzzle33.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle34() {
+//    assertEquals(34, solver("puzzle34.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle35() {
+//    assertEquals(35, solver("puzzle35.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle36() {
+//    assertEquals(36, solver("puzzle36.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle37() {
+//    assertEquals(37, solver("puzzle37.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle38() {
+//    assertEquals(38, solver("puzzle38.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle39() {
+//    assertEquals(39, solver("puzzle39.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle40() {
+//    assertEquals(40, solver("puzzle40.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle41() {
+//    assertEquals(41, solver("puzzle41.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle42() {
+//    assertEquals(42, solver("puzzle42.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle43() {
+//    assertEquals(43, solver("puzzle43.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle44() {
+//    assertEquals(44, solver("puzzle44.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle45() {
+//    assertEquals(45, solver("puzzle45.txt").moves());
+//  }
+//
+//  // -------- Hard ones --------
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle4x41() {
+//    assertEquals(38, solver("puzzle4x4-hard1.txt").moves());
+//  }
+//
+//  @Test(timeout = 300)
+//  public void testPuzzle4x42() {
+//    assertEquals(47, solver("puzzle4x4-hard2.txt").moves());
+//  }
 }
