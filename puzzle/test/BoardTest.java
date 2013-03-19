@@ -242,9 +242,14 @@ public class BoardTest {
     return solver;
   }
 
-  @Test(timeout = 300)
-  public void testPuzzleunsolvable() {
+  @Test(timeout = 1000)
+  public void testPuzzleUnSolvable() {
     assertEquals(false, solver("puzzle3x3-unsolvable.txt").isSolvable());
+  }
+  
+  @Test(timeout = 1000)
+  public void testPuzzleIsSolvable() {
+    assertEquals(true, (new Solver(b3)).isSolvable());
   }
 
   @Test(timeout = 300)
